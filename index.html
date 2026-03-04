@@ -218,6 +218,11 @@ if (e.target.files[0]) readFile(e.target.files[0]);
 }
 
 async function readFile(file) {
+if (typeof pdfjsLib === ‘undefined’) {
+document.getElementById(‘p1err’).textContent = ‘PDF reader is still loading. Please wait a moment and try again.’;
+document.getElementById(‘p1err’).style.display = ‘block’;
+return;
+}
 document.getElementById(‘dz’).style.display = ‘none’;
 document.getElementById(‘p1err’).style.display = ‘none’;
 var fi = document.getElementById(‘finfo’);
@@ -445,7 +450,13 @@ goPanel(1);
 }
 </script>
 
-<script defer src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js" onload="pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js'"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js"></script>
+
+<script>
+if (typeof pdfjsLib !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
+}
+</script>
 
 </body>
 </html>
