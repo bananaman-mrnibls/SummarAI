@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 
-<html lang='en'>
+<html lang="en">
 <head>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-<title>SummarAI - Learn to Summarize</title>
-<link href='https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap' rel='stylesheet'>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SummarAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0d0d0f;--sur:#16161a;--s2:#1e1e24;--bor:#2a2a35;--acc:#c8f060;--ac2:#60b8f0;--ac3:#f060b8;--txt:#f0f0f5;--mut:#888899;--dan:#f06060;--ok:#60f0a8}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;min-height:100vh}
+body{background:var(--bg);color:var(--txt);font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.65;min-height:100vh}
 .app{max-width:860px;margin:0 auto;padding:40px 24px 80px}
 header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px}
+.logo{font-family:"Syne",sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px}
 .logo span{color:var(--acc)}
 .bdg{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);border:1px solid var(--bor);padding:4px 12px;border-radius:100px}
 .steps{display:flex;align-items:center;margin-bottom:40px}
 .step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut);transition:color .3s}
 .step.active{color:var(--txt)}.step.done{color:var(--acc)}
-.snum{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
+.snum{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:"Syne",sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
 .step.active .snum,.step.done .snum{background:var(--acc);border-color:var(--acc);color:#000}
 .scon{flex:1;height:1px;background:var(--bor);margin:0 10px;max-width:80px}
 .card{background:var(--sur);border:1px solid var(--bor);border-radius:16px;padding:32px;margin-bottom:20px}
-.ct{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px}
+.ct{font-family:"Syne",sans-serif;font-weight:700;font-size:18px;margin-bottom:6px}
 .cs{color:var(--mut);font-size:13.5px;margin-bottom:24px}
-.tabs{display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content}
-.tab{padding:7px 18px;border-radius:7px;font-size:13.5px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif}
+.tabs{display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:7px 16px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(--mut);transition:all .2s;font-family:"DM Sans",sans-serif}
 .tab.active{background:var(--sur);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.4)}
-textarea{width:100%;background:var(--s2);border:1px solid var(--bor);border-radius:10px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14.5px;line-height:1.7;padding:14px 16px;resize:vertical;outline:none;transition:border-color .2s;min-height:180px}
+textarea{width:100%;background:var(--s2);border:1px solid var(--bor);border-radius:10px;color:var(--txt);font-family:"DM Sans",sans-serif;font-size:14.5px;line-height:1.7;padding:14px 16px;resize:vertical;outline:none;transition:border-color .2s;min-height:180px}
 textarea:focus{border-color:var(--acc)}
 .dz{border:2px dashed var(--bor);border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .dz:hover,.dz.drag{border-color:var(--acc);background:rgba(200,240,96,.04)}
 .dz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .fbox{display:flex;align-items:center;gap:12px;background:var(--s2);border:1px solid var(--bor);border-radius:10px;padding:14px 16px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14.5px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:14.5px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
 .bp{background:var(--acc);color:#000}.bp:hover:not(:disabled){background:#d8ff70;transform:translateY(-1px);box-shadow:0 4px 20px rgba(200,240,96,.3)}.bp:disabled{opacity:.4;cursor:not-allowed}
 .bs{background:var(--s2);color:var(--txt);border:1px solid var(--bor)}.bs:hover{background:var(--bor)}
 .bg{background:transparent;color:var(--mut);border:1px solid var(--bor)}.bg:hover{color:var(--txt)}
+.bc{background:var(--ac2);color:#000;width:100%;margin-top:10px}.bc:hover{background:#80ccff;transform:translateY(-1px)}
 .ld{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:14px;padding:16px 0}
 .sp{width:20px;height:20px;border:2px solid var(--bor);border-top-color:var(--acc);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -46,79 +47,70 @@ textarea:focus{border-color:var(--acc)}
 .fbb.pos .fblb{color:var(--ok)}.fbb.imp .fblb{color:var(--ac2)}.fbb.mis .fblb{color:var(--ac3)}
 .fbb p{font-size:14px;line-height:1.65}
 .rw{display:flex;flex-direction:column;align-items:center;margin:0 auto 24px}
-.ring{position:relative;width:110px;height:110px}.ring svg{transform:rotate(-90deg)}
+.ring{position:relative;width:110px;height:110px}
+.ring svg{transform:rotate(-90deg)}
 .rt{fill:none;stroke:var(--s2);stroke-width:8}.rf{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
 .rtx{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.rn{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;line-height:1}.rlb{font-size:11px;color:var(--mut)}
+.rn{font-family:"Syne",sans-serif;font-weight:800;font-size:28px;line-height:1}.rlb{font-size:11px;color:var(--mut)}
 .qq{background:var(--s2);border:1px solid var(--bor);border-radius:12px;padding:22px;margin-bottom:16px}
 .qn{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
 .qt{font-size:15px;font-weight:500;margin-bottom:16px}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{display:flex;align-items:flex-start;gap:10px;background:var(--sur);border:1px solid var(--bor);border-radius:8px;padding:11px 14px;cursor:pointer;font-size:14px;transition:all .18s;text-align:left;color:var(--txt);font-family:'DM Sans',sans-serif;width:100%}
+.opt{display:flex;align-items:flex-start;gap:10px;background:var(--sur);border:1px solid var(--bor);border-radius:8px;padding:11px 14px;cursor:pointer;font-size:14px;transition:all .18s;text-align:left;color:var(--txt);font-family:"DM Sans",sans-serif;width:100%}
 .opt:hover:not(:disabled){border-color:var(--acc);background:rgba(200,240,96,.05)}.opt:disabled{cursor:default}
 .opt.correct{border-color:var(--ok);background:rgba(96,240,168,.1)}.opt.wrong{border-color:var(--dan);background:rgba(240,96,96,.08)}
-.ol{width:22px;height:22px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:'Syne',sans-serif;margin-top:1px}
+.ol{width:22px;height:22px;border-radius:50%;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:"Syne",sans-serif;margin-top:1px}
 .qr{font-size:13px;margin-top:10px;padding:10px 14px;border-radius:8px;background:var(--sur);color:var(--mut);line-height:1.5;display:none}
 .qr.show{display:block}.qr.cm{color:var(--ok)}.qr.wm{color:var(--dan)}
-.saw{margin-top:8px}.saw textarea{min-height:80px;font-size:14px}
+.saw textarea{min-height:80px;font-size:14px;margin-top:8px}
 .panel{display:none}.panel.active{display:block;animation:fu .35s ease}
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.fsc{text-align:center;padding:40px;background:var(--sur);border:1px solid var(--bor);border-radius:16px}
-.fgr{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;line-height:1;margin-bottom:8px}
+.fsc{text-align:center;padding:40px;background:var(--sur);border:1px solid var(--bor);border-radius:16px;margin-top:20px}
+.fgr{font-family:"Syne",sans-serif;font-size:72px;font-weight:800;line-height:1;margin-bottom:8px}
 .fgr.A{color:var(--ok)}.fgr.B{color:var(--acc)}.fgr.C{color:var(--ac2)}.fgr.D{color:var(--ac3)}.fgr.F{color:var(--dan)}
 .fsub{color:var(--mut);margin-bottom:24px}
 .fst{display:flex;justify-content:center;gap:32px;margin-bottom:28px}
-.sv{font-family:'Syne',sans-serif;font-weight:700;font-size:26px}.slb{font-size:12px;color:var(--mut)}
-.err{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:12px 16px;color:var(--dan);font-size:13.5px;margin-bottom:16px}
+.sv{font-family:"Syne",sans-serif;font-weight:700;font-size:26px}.slb{font-size:12px;color:var(--mut)}
+.err{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:12px 16px;color:var(--dan);font-size:13.5px;margin-top:12px}
 .cc{text-align:right;font-size:12px;color:var(--mut);margin-top:6px}
 .tp{background:var(--s2);border-radius:10px;padding:16px;max-height:120px;overflow-y:auto;font-size:13.5px;color:var(--mut);line-height:1.65;border:1px solid var(--bor);margin-bottom:16px}
 .tp strong{color:var(--txt);display:block;margin-bottom:6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
 .row{display:flex;gap:10px;flex-wrap:wrap}
-
-.ocr-progress{background:var(–s2);border:1px solid var(–bor);border-radius:10px;padding:16px;margin-top:8px}
-.ocr-bar-wrap{background:var(–bor);border-radius:100px;height:6px;margin:10px 0 6px}
-.ocr-bar{height:6px;border-radius:100px;background:var(–acc);width:0%;transition:width .3s}
-.ocr-status{font-size:12px;color:var(–mut)}
-
-.scan-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:‘DM Sans’,sans-serif;font-size:14.5px;font-weight:500;cursor:pointer;border:none;transition:all .2s;background:var(–ac2);color:#000;width:100%;justify-content:center;margin-top:10px}
-.scan-btn:hover{background:#80ccff;transform:translateY(-1px)}
-#scanner-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;flex-direction:column;align-items:center;justify-content:center;padding:20px}
-#scanner-modal.open{display:flex}
-.scanner-box{background:var(–sur);border:1px solid var(–bor);border-radius:20px;width:100%;max-width:600px;overflow:hidden}
-.scanner-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(–bor)}
-.scanner-title{font-family:‘Syne’,sans-serif;font-weight:700;font-size:16px}
-.scanner-close{background:none;border:none;color:var(–mut);cursor:pointer;font-size:22px;padding:4px;transition:color .2s}
-.scanner-close:hover{color:var(–txt)}
-.scanner-body{padding:20px}
-#cam-wrap{position:relative;background:#000;border-radius:12px;overflow:hidden;margin-bottom:16px;aspect-ratio:4/3}
-#cam-video{width:100%;height:100%;object-fit:cover;display:block}
-#cam-canvas{display:none}
-.cam-overlay{position:absolute;inset:12px;border:2px solid rgba(200,240,96,.6);border-radius:8px;pointer-events:none}
-.cam-corner{position:absolute;width:18px;height:18px;border-color:var(–acc);border-style:solid}
-.cam-corner.tl{top:-1px;left:-1px;border-width:3px 0 0 3px;border-radius:4px 0 0 0}
-.cam-corner.tr{top:-1px;right:-1px;border-width:3px 3px 0 0;border-radius:0 4px 0 0}
-.cam-corner.bl{bottom:-1px;left:-1px;border-width:0 0 3px 3px;border-radius:0 0 0 4px}
-.cam-corner.br{bottom:-1px;right:-1px;border-width:0 3px 3px 0;border-radius:0 0 4px 0}
-.scanner-actions{display:flex;gap:10px;margin-bottom:16px}
-.snap-btn{flex:1;padding:12px;border-radius:10px;font-family:‘DM Sans’,sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;background:var(–acc);color:#000;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
-.snap-btn:hover{background:#d8ff70}
-.snap-btn:disabled{opacity:.4;cursor:not-allowed}
-.pages-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;min-height:0}
-.page-thumb{position:relative;width:64px;height:80px;border-radius:8px;overflow:hidden;border:2px solid var(–bor);cursor:pointer;transition:border-color .2s}
-.page-thumb:hover{border-color:var(–dan)}
-.page-thumb img{width:100%;height:100%;object-fit:cover}
-.page-thumb .del{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.7);border:none;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.page-count{font-size:12px;color:var(–mut);margin-bottom:12px}
-.process-btn{width:100%;padding:12px;border-radius:10px;font-family:‘DM Sans’,sans-serif;font-size:14.5px;font-weight:600;cursor:pointer;border:none;background:var(–acc);color:#000;transition:all .2s}
-.process-btn:hover:not(:disabled){background:#d8ff70}
-.process-btn:disabled{opacity:.4;cursor:not-allowed}
-#scan-ocr-progress{display:none;margin-top:12px}
+.pbar-wrap{background:var(--bor);border-radius:100px;height:6px;margin:8px 0 4px}
+.pbar{height:6px;border-radius:100px;background:var(--acc);width:0%;transition:width .3s}
+.pstatus{font-size:12px;color:var(--mut)}
+.scan-box{background:var(--s2);border:1px solid var(--bor);border-radius:12px;padding:20px;text-align:center}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;padding:16px}
+#modal.open{display:flex}
+.modal-inner{background:var(--sur);border:1px solid var(--bor);border-radius:20px;width:100%;max-width:580px;overflow:hidden}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--bor)}
+.modal-title{font-family:"Syne",sans-serif;font-weight:700;font-size:16px}
+.modal-close{background:none;border:none;color:var(--mut);cursor:pointer;font-size:22px;padding:4px;line-height:1}
+.modal-close:hover{color:var(--txt)}
+.modal-body{padding:20px}
+#vid-wrap{background:#000;border-radius:12px;overflow:hidden;margin-bottom:14px;aspect-ratio:4/3;position:relative}
+#vid{width:100%;height:100%;object-fit:cover;display:block}
+.vid-frame{position:absolute;inset:12px;border:2px solid rgba(200,240,96,.5);border-radius:8px;pointer-events:none}
+.vid-frame::before,.vid-frame::after{content:"";position:absolute;width:20px;height:20px;border-color:var(--acc);border-style:solid}
+.vid-frame::before{top:-2px;left:-2px;border-width:3px 0 0 3px;border-radius:4px 0 0 0}
+.vid-frame::after{bottom:-2px;right:-2px;border-width:0 3px 3px 0;border-radius:0 0 4px 0}
+.snap-btn{width:100%;padding:13px;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:15px;font-weight:600;cursor:pointer;border:none;background:var(--acc);color:#000;transition:all .2s;margin-bottom:14px}
+.snap-btn:hover:not(:disabled){background:#d8ff70}.snap-btn:disabled{opacity:.4;cursor:not-allowed}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;min-height:10px}
+.thumb{position:relative;width:60px;height:75px;border-radius:8px;overflow:hidden;border:2px solid var(--bor);flex-shrink:0}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb-del{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.75);border:none;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.pgcount{font-size:12px;color:var(--mut);margin-bottom:12px}
+.proc-btn{width:100%;padding:12px;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:14.5px;font-weight:600;cursor:pointer;border:none;background:var(--acc);color:#000;transition:all .2s}
+.proc-btn:hover:not(:disabled){background:#d8ff70}.proc-btn:disabled{opacity:.4;cursor:not-allowed}
 </style>
-
 </head>
 <body>
 <div class="app">
-  <header><div class="logo">Summar<span>AI</span></div><div class="bdg">Study Tool</div></header>
+  <header>
+    <div class="logo">Summar<span>AI</span></div>
+    <div class="bdg">Study Tool</div>
+  </header>
   <div class="steps">
     <div class="step active" id="si1"><div class="snum">1</div><span>Load Text</span></div>
     <div class="scon"></div>
@@ -128,416 +120,675 @@ textarea:focus{border-color:var(--acc)}
     <div class="scon"></div>
     <div class="step" id="si4"><div class="snum">4</div><span>Quiz</span></div>
   </div>
+
+  <!-- PANEL 1 -->
+
   <div class="panel active" id="p1">
     <div class="card">
       <div class="ct">Load your text</div>
-      <div class="cs">Upload a .txt file or paste a passage to get started.</div>
+      <div class="cs">Paste a passage, upload a file, or scan physical pages.</div>
       <div class="tabs">
-        <button class="tab active" onclick="switchTab('paste')">Paste Text</button>
-        <button class="tab" onclick="switchTab('file')">Upload File</button>
-        <button class="tab" onclick="switchTab('scan')">&#128247; Scan Pages</button>
-      </div>
-      <div id="t-p">
-        <textarea id="pin" placeholder="Paste an article, chapter, or any passage here..." oninput="ucc()"></textarea>
-        <div class="cc"><span id="cc">0</span> characters</div>
-      </div>
-      <div id="t-f" style="display:none">
-        <div id="dz-w">
-          <div class="dz" id="dz" ondragover="dov(event)" ondragleave="dol()" ondrop="dodrop(event)">
-            <input type="file" accept=".txt,.md,.pdf" onchange="hfile(event)">
-            <div style="font-size:36px;margin-bottom:10px">&#128196;</div>
-            <div style="color:var(--mut);font-size:14px"><strong style="color:var(--txt)">Drop a .txt, .md, or .pdf file</strong> or click to browse</div>
-          </div>
-        </div>
-        <div id="fl-d" style="display:none"></div>
-      </div>
-      <div id="t-s" style="display:none">
-        <div style="background:var(--s2);border:1px solid var(--bor);border-radius:12px;padding:20px;text-align:center">
-          <div style="font-size:36px;margin-bottom:10px">&#128247;</div>
-          <div style="font-weight:600;font-size:15px;margin-bottom:6px">Scan Physical Pages</div>
-          <div style="color:var(--mut);font-size:13.5px;margin-bottom:16px">Use your device camera to scan pages from a physical book or workbook. Each page will be OCR-processed automatically.</div>
-          <button class="scan-btn" onclick="openScanner()">&#128247; Open Camera Scanner</button>
-        </div>
-        <div id="scan-result" style="display:none;margin-top:12px"></div>
+        <button class="tab active" id="tab-paste" onclick="switchTab(0)">Paste Text</button>
+        <button class="tab" id="tab-file" onclick="switchTab(1)">Upload File</button>
+        <button class="tab" id="tab-scan" onclick="switchTab(2)">&#128247; Scan Pages</button>
       </div>
 
 ```
-  <div style="margin-top:20px"><button class="btn bp" id="btn1" onclick="go2()" disabled>Continue to Summarize &#8594;</button></div>
+  <!-- Paste -->
+  <div id="tp-paste">
+    <textarea id="pin" placeholder="Paste an article, chapter, or any passage here..." oninput="onPasteInput()"></textarea>
+    <div class="cc"><span id="cc">0</span> characters</div>
+  </div>
+
+  <!-- Upload -->
+  <div id="tp-file" style="display:none">
+    <div id="dz" class="dz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="onDrop(event)">
+      <input type="file" accept=".txt,.md,.pdf" onchange="onFilePick(event)">
+      <div style="font-size:36px;margin-bottom:10px">&#128196;</div>
+      <div style="color:var(--mut);font-size:14px"><strong style="color:var(--txt)">Drop a .txt, .md, or .pdf file</strong><br>or click to browse</div>
+    </div>
+    <div id="file-info" style="display:none"></div>
+    <div id="file-progress" style="display:none">
+      <div class="ld"><div class="sp"></div><span id="file-progress-label">Processing...</span></div>
+      <div class="pbar-wrap"><div class="pbar" id="file-pbar"></div></div>
+      <div class="pstatus" id="file-pstatus"></div>
+    </div>
+  </div>
+
+  <!-- Scan -->
+  <div id="tp-scan" style="display:none">
+    <div class="scan-box">
+      <div style="font-size:36px;margin-bottom:10px">&#128247;</div>
+      <div style="font-weight:600;font-size:15px;margin-bottom:6px">Scan Physical Pages</div>
+      <div style="color:var(--mut);font-size:13.5px;margin-bottom:16px">Use your camera to scan pages from a physical book or workbook.</div>
+      <button class="btn bc" onclick="openScanner()">&#128247; Open Camera Scanner</button>
+    </div>
+    <div id="scan-info" style="display:none;margin-top:12px"></div>
+  </div>
+
+  <div id="load-err" class="err" style="display:none"></div>
+  <div style="margin-top:20px">
+    <button class="btn bp" id="btn-continue" onclick="goStep2()" disabled>Continue to Summarize &#8594;</button>
+  </div>
 </div>
 ```
 
   </div>
+
+  <!-- PANEL 2 -->
+
   <div class="panel" id="p2">
     <div class="card">
       <div class="ct">Read &amp; Summarize</div>
       <div class="cs">Read the passage below, then write your summary in your own words.</div>
-      <div class="tp"><strong>Source Text</strong><span id="pv2"></span></div>
+      <div class="tp"><strong>Source Text</strong><span id="src-preview"></span></div>
       <label style="font-size:13px;color:var(--mut);font-weight:500;display:block;margin-bottom:8px">Your Summary</label>
-      <textarea id="usum" placeholder="Write the main ideas, key points, and important details..." style="min-height:200px" oninput="csum()"></textarea>
+      <textarea id="usum" placeholder="Write the main ideas, key points, and important details..." style="min-height:200px" oninput="onSumInput()"></textarea>
       <div class="cc"><span id="sc">0</span> characters</div>
-      <div id="serr" class="err" style="display:none;margin-top:12px">Please write at least 80 characters before getting feedback.</div>
+      <div id="sum-err" class="err" style="display:none">Please write at least 80 characters before getting feedback.</div>
       <div class="row" style="margin-top:20px">
-        <button class="btn bg" onclick="goP(1)">&#8592; Back</button>
-        <button class="btn bp" id="bfb" onclick="getFB()" disabled>Get AI Feedback &#8594;</button>
+        <button class="btn bg" onclick="goPanel(1)">&#8592; Back</button>
+        <button class="btn bp" id="btn-feedback" onclick="getFeedback()" disabled>Get AI Feedback &#8594;</button>
       </div>
     </div>
   </div>
+
+  <!-- PANEL 3 -->
+
   <div class="panel" id="p3">
     <div class="card">
       <div class="ct">AI Feedback</div>
       <div class="cs">Here is a detailed breakdown of your summary.</div>
-      <div id="fbl" class="ld"><div class="sp"></div> Analyzing your summary&#8230;</div>
-      <div id="fbc" style="display:none"></div>
-      <div id="fba" class="row" style="display:none;margin-top:24px">
-        <button class="btn bg" onclick="goP(2)">&#8592; Revise Summary</button>
+      <div id="fb-loading" class="ld"><div class="sp"></div>Analyzing your summary&#8230;</div>
+      <div id="fb-content" style="display:none"></div>
+      <div id="fb-actions" class="row" style="display:none;margin-top:24px">
+        <button class="btn bg" onclick="goPanel(2)">&#8592; Revise Summary</button>
         <button class="btn bp" onclick="startQuiz()">Take the Quiz &#8594;</button>
       </div>
     </div>
   </div>
+
+  <!-- PANEL 4 -->
+
   <div class="panel" id="p4">
     <div class="card">
       <div class="ct">Knowledge Quiz</div>
       <div class="cs">Answer questions about the text to test your comprehension.</div>
-      <div id="ql" class="ld"><div class="sp"></div> Generating quiz&#8230;</div>
-      <div id="qc" style="display:none"></div>
-      <div id="qa" class="row" style="display:none;margin-top:20px">
-        <button class="btn bp" id="bsub" onclick="submitQuiz()">Submit Quiz &#8594;</button>
+      <div id="qz-loading" class="ld"><div class="sp"></div>Generating quiz&#8230;</div>
+      <div id="qz-content" style="display:none"></div>
+      <div id="qz-actions" class="row" style="display:none;margin-top:20px">
+        <button class="btn bp" id="btn-submit" onclick="submitQuiz()">Submit Quiz &#8594;</button>
       </div>
     </div>
-    <div id="fscw" style="display:none"></div>
+    <div id="result-wrap"></div>
   </div>
+</div>
 
-<div id="scanner-modal">
-  <div class="scanner-box">
-    <div class="scanner-header">
-      <div class="scanner-title">&#128247; Page Scanner</div>
-      <button class="scanner-close" onclick="closeScanner()">&#x2715;</button>
+<!-- CAMERA MODAL -->
+
+<div id="modal">
+  <div class="modal-inner">
+    <div class="modal-hd">
+      <div class="modal-title">&#128247; Page Scanner</div>
+      <button class="modal-close" onclick="closeScanner()">&#x2715;</button>
     </div>
-    <div class="scanner-body">
-      <div id="cam-wrap">
-        <video id="cam-video" autoplay playsinline muted></video>
-        <canvas id="cam-canvas"></canvas>
-        <div class="cam-overlay">
-          <div class="cam-corner tl"></div>
-          <div class="cam-corner tr"></div>
-          <div class="cam-corner bl"></div>
-          <div class="cam-corner br"></div>
-        </div>
+    <div class="modal-body">
+      <div id="vid-wrap">
+        <video id="vid" autoplay playsinline muted></video>
+        <canvas id="snap-canvas" style="display:none"></canvas>
+        <div class="vid-frame"></div>
       </div>
-      <div class="scanner-actions">
-        <button class="snap-btn" id="snap-btn" onclick="snapPage()">&#9711; Capture Page</button>
-      </div>
-      <div id="page-count-lbl" class="page-count">No pages captured yet</div>
-      <div class="pages-wrap" id="pages-wrap"></div>
-      <button class="process-btn" id="process-btn" onclick="processScannedPages()" disabled>Run OCR &amp; Use Text &#8594;</button>
-      <div id="scan-ocr-progress">
-        <div class="ocr-progress">
-          <div style="font-size:13px;font-weight:500;margin-bottom:4px">&#128269; Running OCR on scanned pages&#8230;</div>
-          <div class="ocr-bar-wrap"><div class="ocr-bar" id="scan-obar"></div></div>
-          <div class="ocr-status" id="scan-ostatus">Preparing&#8230;</div>
-        </div>
+      <button class="snap-btn" id="snap-btn" onclick="captureFrame()">&#9711; Capture Page</button>
+      <div class="pgcount" id="pgcount">No pages captured yet</div>
+      <div class="thumbs" id="thumbs"></div>
+      <button class="proc-btn" id="proc-btn" onclick="processPages()" disabled>Run OCR &amp; Use Text &#8594;</button>
+      <div id="scan-prog" style="display:none;margin-top:14px">
+        <div class="ld"><div class="sp"></div><span id="scan-prog-label">Running OCR&#8230;</span></div>
+        <div class="pbar-wrap"><div class="pbar" id="scan-pbar"></div></div>
+        <div class="pstatus" id="scan-pstatus"></div>
       </div>
     </div>
   </div>
 </div>
-</div>
-  <!-- PDF.js -->
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
-  <!-- Tesseract.js v4 from jsdelivr (more Safari friendly than unpkg) -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/tesseract.min.js"></script>
 
 <script>
-var src='',uSum='',qdata=[],curtab='paste',fbScore=0;
-// Configure PDF.js worker
-if(typeof pdfjsLib !== 'undefined'){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';}
-window.addEventListener('load',function(){if(typeof pdfjsLib !== 'undefined'){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';}});
-function switchTab(t){curtab=t;document.querySelectorAll('.tab').forEach(function(b,i){b.classList.toggle('active',(i===0&&t==='paste')||(i===1&&t==='file')||(i===2&&t==='scan'))});document.getElementById('t-p').style.display=t==='paste'?'block':'none';document.getElementById('t-f').style.display=t==='file'?'block':'none';document.getElementById('t-s').style.display=t==='scan'?'block':'none';val1()}
-function ucc(){var v=document.getElementById('pin').value;document.getElementById('cc').textContent=v.length;val1()}
-function csum(){var v=document.getElementById('usum').value;document.getElementById('sc').textContent=v.length;document.getElementById('bfb').disabled=v.trim().length<80}
-function val1(){var hp=curtab==='paste'&&document.getElementById('pin').value.trim().length>100;var hf=curtab==='file'&&src.length>100;var hs=curtab==='scan'&&src.length>100;document.getElementById('btn1').disabled=!(hp||hf||hs)}
-function dov(e){e.preventDefault();document.getElementById('dz').classList.add('drag')}
-function dol(){document.getElementById('dz').classList.remove('drag')}
-function dodrop(e){e.preventDefault();dol();if(e.dataTransfer.files[0])pf(e.dataTransfer.files[0])}
-function hfile(e){if(e.target.files[0])pf(e.target.files[0])}
-function showFileLoaded(name,size,wordCount){document.getElementById('dz-w').style.display='none';var fd=document.getElementById('fl-d');fd.style.display='block';fd.innerHTML='<div class="fbox"><span style="font-size:24px">&#128196;</span><div style="flex:1"><div style="font-weight:500;font-size:14px">'+name+'</div><div style="color:var(--mut);font-size:12px">'+size+' KB &middot; ~'+wordCount+' words</div></div><button style="background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;margin-left:auto;padding:4px" onclick="clf()">&#x2715;</button></div>';val1()}
-function pf(file){
-if(file.name.toLowerCase().endsWith('.pdf')){
-var statusEl=document.getElementById('fl-d');
-statusEl.style.display='block';
-statusEl.innerHTML='<div class="fbox"><div class="sp" style="flex-shrink:0"></div><span style="color:var(--mut);font-size:14px;margin-left:8px">Extracting PDF text&#8230;</span></div>';
-document.getElementById('dz-w').style.display='none';
-var fr=new FileReader();
-fr.onload=async function(ev){
-try{
-var typedArr=new Uint8Array(ev.target.result);
-var pdf=await pdfjsLib.getDocument({data:typedArr}).promise;
-var text='';
-for(var i=1;i<=pdf.numPages;i++){var page=await pdf.getPage(i);var content=await page.getTextContent();text+=content.items.map(function(s){return s.str}).join(' ')+'\n';}
-text=text.trim();
-if(text.length>=50){src=text;showFileLoaded(file.name,Math.round(file.size/1024*10)/10,src.split(/\s+/).length);}
-else{runOCR(pdf,file);}
-}catch(e){statusEl.innerHTML='<div class="err">Failed to read PDF: '+e.message+'</div>';}
-};
-fr.readAsArrayBuffer(file);
-}else{
-var r=new FileReader();r.onload=function(ev){src=ev.target.result;showFileLoaded(file.name,Math.round(file.size/1024*10)/10,src.split(/\s+/).length)};r.readAsText(file);
-}}
+// ── state ──────────────────────────────────────────────────────────
+var sourceText = '';
+var summaryText = '';
+var quizData = [];
+var fbScore = 0;
+var activeTab = 0;
+var camStream = null;
+var scannedPages = [];
 
-async function runOCR(pdf,file){
-var statusEl=document.getElementById('fl-d');
-statusEl.innerHTML='<div class="ocr-progress"><div style="font-size:13px;font-weight:500;margin-bottom:4px">&#128269; Scanned PDF detected &mdash; running OCR</div><div class="ocr-bar-wrap"><div class="ocr-bar" id="obar"></div></div><div class="ocr-status" id="ostatus">Preparing&#8230;</div></div>';
-var numPages=pdf.numPages;
-var allText='';
-var worker=await Tesseract.createWorker('eng',1,{logger:function(m){if(m.status==='recognizing text'){var pct=Math.round(m.progress*100);document.getElementById('obar').style.width=pct+'%';document.getElementById('ostatus').textContent='Page recognition: '+pct+'%';}}});
-for(var i=1;i<=numPages;i++){
-document.getElementById('ostatus').textContent='Processing page '+i+' of '+numPages+'...';
-document.getElementById('obar').style.width=Math.round(((i-1)/numPages)*100)+'%';
-var page=await pdf.getPage(i);
-var viewport=page.getViewport({scale:2});
-var canvas=document.createElement('canvas');
-canvas.width=viewport.width;canvas.height=viewport.height;
-var ctx=canvas.getContext('2d');
-await page.render({canvasContext:ctx,viewport:viewport}).promise;
-var result=await worker.recognize(canvas);
-allText+=result.data.text+'\n';
-}
-await worker.terminate();
-src=allText.trim();
-if(src.length<50){statusEl.innerHTML='<div class="err">OCR could not extract readable text from this PDF.</div>';return;}
-showFileLoaded(file.name,Math.round(file.size/1024*10)/10,src.split(/\s+/).length);
-}
-function clf(){src='';document.getElementById('dz-w').style.display='block';document.getElementById('fl-d').style.display='none';val1()}
-function goP(n){document.querySelectorAll('.panel').forEach(function(p,i){p.classList.toggle('active',i===n-1)});for(var i=1;i<=4;i++){var el=document.getElementById('si'+i);el.classList.remove('active','done');if(i<n)el.classList.add('done');else if(i===n)el.classList.add('active')}window.scrollTo({top:0,behavior:'smooth'})}
-function go2(){if(curtab==='paste')src=document.getElementById('pin').value.trim();document.getElementById('pv2').textContent=src.substring(0,600)+(src.length>600?'...':'');document.getElementById('bfb').disabled=true;goP(2)}
-async function getFB(){
-uSum=document.getElementById('usum').value.trim();
-if(uSum.length<80){document.getElementById('serr').style.display='block';return}
-document.getElementById('serr').style.display='none';
-goP(3);
-document.getElementById('fbl').style.display='flex';
-document.getElementById('fbc').style.display='none';
-document.getElementById('fba').style.display='none';
-var excerpt=src.substring(0,3000);
-var prompt='You are an expert writing tutor.\n\nORIGINAL TEXT:\n"""\n'+excerpt+'\n"""\n\nSTUDENT SUMMARY:\n"""\n'+uSum+'\n"""\n\nRespond ONLY with JSON no markdown: {"score":integer0to100,"scoreLabel":"Excellent or Good or Fair or Needs Work","positive":"2-3 sentences on strengths","improve":"2-3 specific improvement sentences","missing":"1-2 sentences on missed key ideas or write Nothing major missed","tip":"one actionable writing tip"}';
-try{
-var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-var d=await res.json();
-var raw=d.content.map(function(b){return b.text||''}).join('').replace(/```json|```/g,'').trim();
-var fb=JSON.parse(raw);
-fbScore=fb.score;
-renderFB(fb);
-}catch(e){
-document.getElementById('fbl').style.display='none';
-document.getElementById('fbc').innerHTML='<div class="err">Something went wrong. Please try again.</div>';
-document.getElementById('fbc').style.display='block';
-}}
-function renderFB(fb){
-document.getElementById('fbl').style.display='none';
-var r=46,circ=2*Math.PI*r,off=circ-(fb.score/100)*circ;
-var rc=fb.score>=80?'var(--ok)':fb.score>=60?'var(--acc)':'var(--ac3)';
-document.getElementById('fbc').innerHTML=
-'<div class="rw"><div class="ring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="'+r+'"/><circle class="rf" cx="55" cy="55" r="'+r+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="rfill" style="stroke:'+rc+'"/></svg><div class="rtx"><div class="rn">'+fb.score+'</div><div class="rlb">/ 100</div></div></div><div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px;">'+fb.scoreLabel+'</div></div>'+
-'<div class="fbb pos"><div class="fblb">&#10003; What you did well</div><p>'+fb.positive+'</p></div>'+
-'<div class="fbb imp"><div class="fblb">&#8593; How to improve</div><p>'+fb.improve+'</p></div>'+
-'<div class="fbb mis"><div class="fblb">&#9711; Key ideas coverage</div><p>'+fb.missing+'</p></div>'+
-'<div style="background:var(--s2);border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px">&#128161; Pro Tip</div><p style="font-size:14px">'+fb.tip+'</p></div>';
-document.getElementById('fbc').style.display='block';
-document.getElementById('fba').style.display='flex';
-setTimeout(function(){var el=document.getElementById('rfill');if(el)el.style.strokeDashoffset=off},100)}
-async function startQuiz(){
-goP(4);
-document.getElementById('ql').style.display='flex';
-document.getElementById('qc').style.display='none';
-document.getElementById('qa').style.display='none';
-document.getElementById('fscw').style.display='none';
-var excerpt=src.substring(0,3000);
-var prompt='Create a 5-question reading comprehension quiz for this text:\n"""\n'+excerpt+'\n"""\nUse at least 3 multiple-choice (4 options) and 1-2 short-answer questions.\nRespond ONLY with a JSON array no markdown.\nFor MC: {"type":"mc","question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"A","explanation":"..."}\nFor SA: {"type":"sa","question":"...","sampleAnswer":"...","keywords":["w1","w2","w3"]}';
-try{
-var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
-var d=await res.json();
-var raw=d.content.map(function(b){return b.text||''}).join('').replace(/```json|```/g,'').trim();
-qdata=JSON.parse(raw);
-renderQuiz();
-}catch(e){
-document.getElementById('ql').style.display='none';
-document.getElementById('qc').innerHTML='<div class="err">Could not generate quiz. Please try again.</div>';
-document.getElementById('qc').style.display='block';
-}}
-function renderQuiz(){
-document.getElementById('ql').style.display='none';
-var L=['A','B','C','D'],html='';
-qdata.forEach(function(q,qi){
-if(q.type==='mc'){
-html+='<div class="qq" id="q'+qi+'"><div class="qn">Question '+(qi+1)+' &middot; Multiple Choice</div><div class="qt">'+q.question+'</div><div class="opts">';
-q.options.forEach(function(opt,oi){html+='<button class="opt" id="o'+qi+'_'+oi+'" onclick="selMC('+qi+','+oi+')"><span class="ol">'+L[oi]+'</span><span>'+opt.replace(/^[A-D]\)\s*/,'')+'</span></button>'});
-html+='</div><div class="qr" id="r'+qi+'"></div></div>';
-}else{
-html+='<div class="qq" id="q'+qi+'"><div class="qn">Question '+(qi+1)+' &middot; Short Answer</div><div class="qt">'+q.question+'</div><div class="saw"><textarea id="sa'+qi+'" placeholder="Type your answer here..."></textarea></div></div>';
-
-}});
-document.getElementById(‘qc’).innerHTML=html;
-document.getElementById(‘qc’).style.display=‘block’;
-document.getElementById(‘qa’).style.display=‘flex’}
-function selMC(qi,sel){
-var q=qdata[qi],L=[‘A’,‘B’,‘C’,‘D’],ci=L.indexOf(q.answer);
-for(var i=0;i<4;i++){var b=document.getElementById(‘o’+qi+’*’+i);if(!b)continue;b.disabled=true;b.classList.remove(‘correct’,‘wrong’);if(i===ci)b.classList.add(‘correct’);else if(i===sel)b.classList.add(‘wrong’)}
-var r=document.getElementById(‘r’+qi);r.classList.add(‘show’);
-if(sel===ci){r.classList.add(‘cm’);r.textContent=’Correct! ’+q.explanation}
-else{r.classList.add(‘wm’);r.textContent=’Not quite. ‘+q.explanation}}
-async function submitQuiz(){
-document.getElementById(‘bsub’).disabled=true;
-document.getElementById(‘bsub’).textContent=‘Grading…’;
-var L=[‘A’,‘B’,‘C’,‘D’],mcC=0,mcT=0,sa=[];
-qdata.forEach(function(q,qi){
-if(q.type===‘mc’){
-mcT++;
-var ci=L.indexOf(q.answer),r=document.getElementById(‘r’+qi);
-if(!r.classList.contains(‘show’)){
-var b=document.getElementById(‘o’+qi+’*’+ci);if(b)b.classList.add(‘correct’);
-for(var i=0;i<4;i++){var bt=document.getElementById(‘o’+qi+’_’+i);if(bt)bt.disabled=true}
-r.classList.add(‘show’,‘wm’);r.textContent=‘Not answered. ‘+q.explanation;
-}else if(r.classList.contains(‘cm’))mcC++;
-}else{
-var v=(document.getElementById(‘sa’+qi)||{}).value||’’;
-sa.push({qi:qi,q:q.question,a:v.trim(),sa:q.sampleAnswer,kw:q.keywords});
-}});
-var saScore=0;
-if(sa.length>0){
-try{
-var sp=‘Grade these short answers 0-10 each. Return ONLY JSON array [{score:N,feedback:”…”},…] no markdown.\n’+sa.map(function(s,i){return ‘Q’+(i+1)+’: ‘+s.q+’\nSample: ‘+s.sa+’\nKeywords: ‘+s.kw.join(’, ‘)+’\nStudent: “’+s.a+’”’}).join(’\n\n’);
-var res=await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:600,messages:[{role:‘user’,content:sp}]})});
-var d=await res.json();
-var raw=d.content.map(function(b){return b.text||’’}).join(’’).replace(/`json|`/g,’’).trim();
-var gs=JSON.parse(raw);
-gs.forEach(function(g,i){
-var qi=sa[i].qi;saScore+=g.score;
-var ta=document.getElementById(‘sa’+qi);if(ta)ta.disabled=true;
-var fe=document.createElement(‘div’);
-fe.className=‘qr show ‘+(g.score>=6?‘cm’:‘wm’);
-fe.textContent=‘Score: ‘+g.score+’/10 - ‘+g.feedback;
-document.getElementById(‘q’+qi).appendChild(fe)});
-}catch(e){saScore=sa.length*5}}
-var mp=mcT>0?(mcC/mcT)*100:100;
-var sp2=sa.length>0?(saScore/(sa.length*10))*100:100;
-var tot=Math.round(sa.length>0?(mp+sp2)/2:mp);
-showFinal(tot,mcC,mcT);
-document.getElementById(‘qa’).style.display=‘none’}
-function showFinal(pct,mcC,mcT){
-var g,gc;
-if(pct>=90){g=‘A’;gc=‘A’}else if(pct>=80){g=‘B’;gc=‘B’}else if(pct>=70){g=‘C’;gc=‘C’}else if(pct>=60){g=‘D’;gc=‘D’}else{g=‘F’;gc=‘F’}
-var msgs={A:‘Outstanding! You have an excellent grasp of the material.’,B:‘Great work! You understood most of the key ideas.’,C:‘Good effort! Review the explanations to strengthen your understanding.’,D:‘Keep at it! Re-reading the text carefully will help a lot.’,F:“Don’t give up! Review the material and try again.”};
-document.getElementById(‘fscw’).innerHTML=’<div class="fsc" style="margin-top:20px"><div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:16px">Quiz Complete</div><div class="fgr '+gc+'">’+g+’</div><div class="fsub">’+pct+’% · ‘+msgs[g]+’</div><div class="fst"><div style="text-align:center"><div class="sv" style="color:var(--acc)">’+(mcT>0?mcC+’/’+mcT:’—’)+’</div><div class="slb">MC Correct</div></div><div style="text-align:center"><div class="sv" style="color:var(--ac2)">’+fbScore+’</div><div class="slb">Summary Score</div></div><div style="text-align:center"><div class="sv" style="color:var(--ok)">’+pct+’%</div><div class="slb">Quiz Score</div></div></div><div class="row" style="justify-content:center"><button class="btn bs" onclick="goP(2)">Revise Summary</button><button class="btn bp" onclick="restart()">Start Over ↻</button></div></div>’;
-document.getElementById(‘fscw’).style.display=‘block’;
-document.getElementById(‘fscw’).scrollIntoView({behavior:‘smooth’})}
-function restart(){
-src=’’;uSum=’’;qdata=[];fbScore=0;
-document.getElementById(‘pin’).value=’’;
-document.getElementById(‘usum’).value=’’;
-document.getElementById(‘cc’).textContent=‘0’;
-document.getElementById(‘sc’).textContent=‘0’;
-clf();
-document.getElementById(‘btn1’).disabled=true;
-document.getElementById(‘bfb’).disabled=true;
-goP(1)}
-
-var camStream=null,scannedPages=[];
-
-function openScanner(){
-document.getElementById(‘scanner-modal’).classList.add(‘open’);
-startCamera();
+// ── tab switching ───────────────────────────────────────────────────
+function switchTab(n) {
+  activeTab = n;
+  ['tab-paste','tab-file','tab-scan'].forEach(function(id, i) {
+    document.getElementById(id).classList.toggle('active', i === n);
+  });
+  ['tp-paste','tp-file','tp-scan'].forEach(function(id, i) {
+    document.getElementById(id).style.display = i === n ? 'block' : 'none';
+  });
+  document.getElementById('load-err').style.display = 'none';
+  checkContinue();
 }
 
-function closeScanner(){
-stopCamera();
-document.getElementById(‘scanner-modal’).classList.remove(‘open’);
+// ── step navigation ─────────────────────────────────────────────────
+function goPanel(n) {
+  document.querySelectorAll('.panel').forEach(function(el, i) {
+    el.classList.toggle('active', i === n - 1);
+  });
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('si' + i);
+    el.classList.remove('active', 'done');
+    if (i < n) el.classList.add('done');
+    else if (i === n) el.classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function startCamera(){
-try{
-var constraints={video:{facingMode:{ideal:‘environment’},width:{ideal:1920},height:{ideal:1080}}};
-camStream=await navigator.mediaDevices.getUserMedia(constraints);
-document.getElementById(‘cam-video’).srcObject=camStream;
-}catch(e){
-document.getElementById(‘cam-wrap’).innerHTML=’<div style="padding:32px;text-align:center;color:var(--dan);font-size:14px">⚠ Camera access denied or not available.<br><span style="color:var(--mut);font-size:12px">Please allow camera access in your browser settings.</span></div>’;
-}
+// ── continue button ─────────────────────────────────────────────────
+function checkContinue() {
+  document.getElementById('btn-continue').disabled = sourceText.trim().length < 100;
 }
 
-function stopCamera(){
-if(camStream){camStream.getTracks().forEach(function(t){t.stop()});camStream=null;}
+function goStep2() {
+  if (activeTab === 0) sourceText = document.getElementById('pin').value.trim();
+  document.getElementById('src-preview').textContent =
+    sourceText.substring(0, 600) + (sourceText.length > 600 ? '...' : '');
+  document.getElementById('btn-feedback').disabled = true;
+  document.getElementById('usum').value = '';
+  document.getElementById('sc').textContent = '0';
+  goPanel(2);
 }
 
-function snapPage(){
-var video=document.getElementById(‘cam-video’);
-var canvas=document.getElementById(‘cam-canvas’);
-canvas.width=video.videoWidth||640;
-canvas.height=video.videoHeight||480;
-var ctx=canvas.getContext(‘2d’);
-ctx.drawImage(video,0,0,canvas.width,canvas.height);
-var dataUrl=canvas.toDataURL(‘image/jpeg’,0.92);
-scannedPages.push(dataUrl);
-renderThumbs();
-// Flash effect
-var flash=document.createElement(‘div’);
-flash.style.cssText=‘position:absolute;inset:0;background:#fff;opacity:.7;pointer-events:none;border-radius:12px;animation:none’;
-document.getElementById(‘cam-wrap’).appendChild(flash);
-setTimeout(function(){flash.remove()},150);
+// ── paste tab ───────────────────────────────────────────────────────
+function onPasteInput() {
+  var v = document.getElementById('pin').value;
+  document.getElementById('cc').textContent = v.length;
+  if (activeTab === 0) { sourceText = v; checkContinue(); }
 }
 
-function renderThumbs(){
-var wrap=document.getElementById(‘pages-wrap’);
-wrap.innerHTML=’’;
-scannedPages.forEach(function(pg,i){
-var div=document.createElement(‘div’);
-div.className=‘page-thumb’;
-div.title=‘Click to remove’;
-div.innerHTML=’<img src="'+pg+'"><button class="del" onclick="removePage('+i+')">✕</button>’;
-wrap.appendChild(div);
+// ── summary tab ─────────────────────────────────────────────────────
+function onSumInput() {
+  var v = document.getElementById('usum').value;
+  document.getElementById('sc').textContent = v.length;
+  document.getElementById('btn-feedback').disabled = v.trim().length < 80;
+}
+
+// ── file upload ─────────────────────────────────────────────────────
+function onDrop(e) {
+  e.preventDefault();
+  document.getElementById('dz').classList.remove('drag');
+  var f = e.dataTransfer.files[0];
+  if (f) handleFile(f);
+}
+
+function onFilePick(e) {
+  var f = e.target.files[0];
+  if (f) handleFile(f);
+}
+
+function handleFile(file) {
+  document.getElementById('load-err').style.display = 'none';
+  var ext = file.name.split('.').pop().toLowerCase();
+  if (ext === 'pdf') {
+    readPDF(file);
+  } else {
+    var r = new FileReader();
+    r.onload = function(e) {
+      sourceText = e.target.result;
+      showFileInfo(file.name, Math.round(file.size / 1024 * 10) / 10, sourceText.split(/\s+/).length);
+    };
+    r.readAsText(file);
+  }
+}
+
+function showFileInfo(name, kb, words) {
+  document.getElementById('dz').style.display = 'none';
+  document.getElementById('file-progress').style.display = 'none';
+  var el = document.getElementById('file-info');
+  el.style.display = 'block';
+  el.innerHTML = '<div class="fbox">' +
+    '<span style="font-size:24px">&#128196;</span>' +
+    '<div style="flex:1"><div style="font-weight:500;font-size:14px">' + name + '</div>' +
+    '<div style="color:var(--mut);font-size:12px">' + kb + ' KB &middot; ~' + words + ' words</div></div>' +
+    '<button style="background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:4px" onclick="clearFile()">&#x2715;</button>' +
+    '</div>';
+  checkContinue();
+}
+
+function clearFile() {
+  sourceText = '';
+  document.getElementById('dz').style.display = 'block';
+  document.getElementById('file-info').style.display = 'none';
+  checkContinue();
+}
+
+// ── PDF reading ─────────────────────────────────────────────────────
+async function loadPDFJS() {
+  return new Promise(function(resolve, reject) {
+    if (typeof pdfjsLib !== 'undefined') { resolve(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js';
+    s.onload = function() {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
+      resolve();
+    };
+    s.onerror = function() { reject(new Error('Could not load PDF library.')); };
+    document.body.appendChild(s);
+  });
+}
+
+async function readPDF(file) {
+  document.getElementById('dz').style.display = 'none';
+  document.getElementById('file-info').style.display = 'none';
+  var prog = document.getElementById('file-progress');
+  prog.style.display = 'block';
+  document.getElementById('file-progress-label').textContent = 'Loading PDF reader...';
+  try { await loadPDFJS(); } catch(e) { prog.style.display='none'; document.getElementById('dz').style.display='block'; showErr('Could not load PDF reader: '+e.message); return; }
+
+  try {
+    var ab = await file.arrayBuffer();
+    var pdf = await pdfjsLib.getDocument({ data: new Uint8Array(ab) }).promise;
+    var text = '';
+    for (var i = 1; i <= pdf.numPages; i++) {
+      document.getElementById('file-pstatus').textContent = 'Page ' + i + ' of ' + pdf.numPages;
+      document.getElementById('file-pbar').style.width = Math.round((i / pdf.numPages) * 100) + '%';
+      var page = await pdf.getPage(i);
+      var content = await page.getTextContent();
+      text += content.items.map(function(s) { return s.str; }).join(' ') + '\n';
+    }
+    text = text.trim();
+    if (text.length >= 80) {
+      sourceText = text;
+      showFileInfo(file.name, Math.round(file.size / 1024 * 10) / 10, text.split(/\s+/).length);
+    } else {
+      document.getElementById('file-progress-label').textContent = 'Scanned PDF — running OCR...';
+      await runOCRonPDF(pdf, file);
+    }
+  } catch(e) {
+    prog.style.display = 'none';
+    document.getElementById('dz').style.display = 'block';
+    showErr('Could not read PDF: ' + e.message);
+  }
+}
+
+// ── OCR on PDF pages ────────────────────────────────────────────────
+async function runOCRonPDF(pdf, file) {
+  try {
+    await loadTesseract();
+    var worker = await Tesseract.createWorker('eng');
+    var allText = '';
+    for (var i = 1; i <= pdf.numPages; i++) {
+      document.getElementById('file-pstatus').textContent = 'OCR: page ' + i + ' of ' + pdf.numPages;
+      document.getElementById('file-pbar').style.width = Math.round((i / pdf.numPages) * 100) + '%';
+      var page = await pdf.getPage(i);
+      var vp = page.getViewport({ scale: 2 });
+      var cv = document.createElement('canvas');
+      cv.width = vp.width; cv.height = vp.height;
+      await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+      var result = await worker.recognize(cv);
+      allText += result.data.text + '\n';
+    }
+    await worker.terminate();
+    sourceText = allText.trim();
+    if (sourceText.length < 80) {
+      document.getElementById('file-progress').style.display = 'none';
+      document.getElementById('dz').style.display = 'block';
+      showErr('OCR could not extract readable text from this PDF.');
+      return;
+    }
+    showFileInfo(file.name, Math.round(file.size / 1024 * 10) / 10, sourceText.split(/\s+/).length);
+  } catch(e) {
+    document.getElementById('file-progress').style.display = 'none';
+    document.getElementById('dz').style.display = 'block';
+    showErr('OCR failed: ' + e.message);
+  }
+}
+
+// ── Camera scanner ──────────────────────────────────────────────────
+function openScanner() {
+  document.getElementById('modal').classList.add('open');
+  startCam();
+}
+
+function closeScanner() {
+  stopCam();
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('scan-prog').style.display = 'none';
+}
+
+async function startCam() {
+  try {
+    camStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } }
+    });
+    document.getElementById('vid').srcObject = camStream;
+  } catch(e) {
+    document.getElementById('vid-wrap').innerHTML =
+      '<div style="padding:40px;text-align:center;color:var(--dan);font-size:14px">' +
+      '&#9888; Camera access denied.<br>' +
+      '<span style="color:var(--mut);font-size:12px">Allow camera access in your browser/system settings, then reload.</span></div>';
+    document.getElementById('snap-btn').disabled = true;
+  }
+}
+
+function stopCam() {
+  if (camStream) { camStream.getTracks().forEach(function(t) { t.stop(); }); camStream = null; }
+}
+
+function captureFrame() {
+  var vid = document.getElementById('vid');
+  var cv = document.getElementById('snap-canvas');
+  cv.width = vid.videoWidth || 1280;
+  cv.height = vid.videoHeight || 720;
+  cv.getContext('2d').drawImage(vid, 0, 0, cv.width, cv.height);
+  scannedPages.push(cv.toDataURL('image/jpeg', 0.9));
+  renderThumbs();
+}
+
+function renderThumbs() {
+  var wrap = document.getElementById('thumbs');
+  wrap.innerHTML = '';
+  scannedPages.forEach(function(pg, i) {
+    var d = document.createElement('div');
+    d.className = 'thumb';
+    d.innerHTML = '<img src="' + pg + '"><button class="thumb-del" onclick="removePage(' + i + ')">&#x2715;</button>';
+    wrap.appendChild(d);
+  });
+  var n = scannedPages.length;
+  document.getElementById('pgcount').textContent = n === 0 ? 'No pages captured yet' : n + ' page' + (n === 1 ? '' : 's') + ' captured';
+  document.getElementById('proc-btn').disabled = n === 0;
+}
+
+function removePage(i) {
+  scannedPages.splice(i, 1);
+  renderThumbs();
+}
+
+async function loadTesseract() {
+  return new Promise(function(resolve, reject) {
+    if (typeof Tesseract !== 'undefined') { resolve(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.0.4/dist/tesseract.min.js';
+    s.onload = function() { resolve(); };
+    s.onerror = function() { reject(new Error('Could not load OCR library. Check your internet connection.')); };
+    document.body.appendChild(s);
+  });
+}
+
+async function processPages() {
+  if (scannedPages.length === 0) return;
+  document.getElementById('proc-btn').disabled = true;
+  document.getElementById('snap-btn').disabled = true;
+  document.getElementById('scan-prog').style.display = 'block';
+  document.getElementById('scan-prog-label').textContent = 'Loading OCR engine...';
+  try {
+    await loadTesseract();
+    var worker = await Tesseract.createWorker('eng');
+    var allText = '';
+    for (var i = 0; i < scannedPages.length; i++) {
+      document.getElementById('scan-prog-label').textContent = 'OCR: page ' + (i+1) + ' of ' + scannedPages.length;
+      document.getElementById('scan-pbar').style.width = Math.round(((i+1)/scannedPages.length)*100)+'%';
+      document.getElementById('scan-pstatus').textContent = 'Processing...';
+      var result = await worker.recognize(scannedPages[i]);
+      allText += result.data.text + '\n';
+    }
+    await worker.terminate();
+    sourceText = allText.trim();
+    var n = scannedPages.length;
+    scannedPages = [];
+    closeScanner();
+    var el = document.getElementById('scan-info');
+    el.style.display = 'block';
+    el.innerHTML = '<div class="fbox"><span style="font-size:24px">&#128247;</span><div style="flex:1"><div style="font-weight:500;font-size:14px">'+n+' scanned page'+(n===1?'':'s')+'</div><div style="color:var(--mut);font-size:12px">~'+sourceText.split(/\s+/).length+' words extracted</div></div><button style="background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:4px" onclick="clearScan()">&#x2715;</button></div>';
+    checkContinue();
+  } catch(e) {
+    document.getElementById('scan-pstatus').textContent = 'Error: ' + e.message;
+    document.getElementById('proc-btn').disabled = false;
+    document.getElementById('snap-btn').disabled = false;
+  }
+}
+
+function clearScan() {
+  sourceText = '';
+  document.getElementById('scan-info').style.display = 'none';
+  checkContinue();
+}
+
+// ── AI Feedback ─────────────────────────────────────────────────────
+async function getFeedback() {
+  summaryText = document.getElementById('usum').value.trim();
+  if (summaryText.length < 80) {
+    document.getElementById('sum-err').style.display = 'block';
+    return;
+  }
+  document.getElementById('sum-err').style.display = 'none';
+  goPanel(3);
+  document.getElementById('fb-loading').style.display = 'flex';
+  document.getElementById('fb-content').style.display = 'none';
+  document.getElementById('fb-actions').style.display = 'none';
+
+  var prompt = 'You are an expert writing tutor.\n\nORIGINAL TEXT (first 3000 chars):\n' +
+    sourceText.substring(0, 3000) +
+    '\n\nSTUDENT SUMMARY:\n' + summaryText +
+    '\n\nRespond ONLY with a raw JSON object, no markdown, no backticks:\n' +
+    '{"score":75,"scoreLabel":"Good","positive":"...","improve":"...","missing":"...","tip":"..."}';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var d = await res.json();
+    var raw = d.content.map(function(b) { return b.text || ''; }).join('').replace(/```[a-z]*/g, '').replace(/```/g, '').trim();
+    var fb = JSON.parse(raw);
+    fbScore = fb.score;
+    renderFeedback(fb);
+  } catch(e) {
+    document.getElementById('fb-loading').style.display = 'none';
+    document.getElementById('fb-content').innerHTML = '<div class="err">Something went wrong. Please try again.</div>';
+    document.getElementById('fb-content').style.display = 'block';
+  }
+}
+
+function renderFeedback(fb) {
+  document.getElementById('fb-loading').style.display = 'none';
+  var r = 46, circ = 2 * Math.PI * r, off = circ - (fb.score / 100) * circ;
+  var clr = fb.score >= 80 ? 'var(--ok)' : fb.score >= 60 ? 'var(--acc)' : 'var(--ac3)';
+  document.getElementById('fb-content').innerHTML =
+    '<div class="rw"><div class="ring">' +
+    '<svg width="110" height="110" viewBox="0 0 110 110">' +
+    '<circle class="rt" cx="55" cy="55" r="' + r + '"/>' +
+    '<circle class="rf" cx="55" cy="55" r="' + r + '" stroke-dasharray="' + circ + '" stroke-dashoffset="' + circ + '" id="rfill" style="stroke:' + clr + '"/>' +
+    '</svg><div class="rtx"><div class="rn">' + fb.score + '</div><div class="rlb">/ 100</div></div></div>' +
+    '<div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px">' + fb.scoreLabel + '</div></div>' +
+    '<div class="fbb pos"><div class="fblb">&#10003; What you did well</div><p>' + fb.positive + '</p></div>' +
+    '<div class="fbb imp"><div class="fblb">&#8593; How to improve</div><p>' + fb.improve + '</p></div>' +
+    '<div class="fbb mis"><div class="fblb">&#9711; Key ideas coverage</div><p>' + fb.missing + '</p></div>' +
+    '<div style="background:var(--s2);border-radius:10px;padding:14px 16px;margin-top:4px">' +
+    '<div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px">&#128161; Pro Tip</div>' +
+    '<p style="font-size:14px">' + fb.tip + '</p></div>';
+  document.getElementById('fb-content').style.display = 'block';
+  document.getElementById('fb-actions').style.display = 'flex';
+  setTimeout(function() {
+    var el = document.getElementById('rfill');
+    if (el) el.style.strokeDashoffset = off;
+  }, 100);
+}
+
+// ── Quiz ────────────────────────────────────────────────────────────
+async function startQuiz() {
+  goPanel(4);
+  document.getElementById('qz-loading').style.display = 'flex';
+  document.getElementById('qz-content').style.display = 'none';
+  document.getElementById('qz-actions').style.display = 'none';
+  document.getElementById('result-wrap').innerHTML = '';
+
+  var prompt = 'Create exactly 5 reading comprehension questions for this text:\n' +
+    sourceText.substring(0, 3000) +
+    '\nUse 3-4 multiple choice (4 options A-D, 1 correct) and 1-2 short answer questions.' +
+    '\nRespond ONLY with a raw JSON array, no markdown, no backticks.' +
+    '\nMC format: {"type":"mc","question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"A","explanation":"..."}' +
+    '\nSA format: {"type":"sa","question":"...","sampleAnswer":"...","keywords":["w1","w2","w3"]}';
+
+  try {
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    var d = await res.json();
+    var raw = d.content.map(function(b) { return b.text || ''; }).join('').replace(/```[a-z]*/g, '').replace(/```/g, '').trim();
+    quizData = JSON.parse(raw);
+    renderQuiz();
+  } catch(e) {
+    document.getElementById('qz-loading').style.display = 'none';
+    document.getElementById('qz-content').innerHTML = '<div class="err">Could not generate quiz. Please try again.</div>';
+    document.getElementById('qz-content').style.display = 'block';
+  }
+}
+
+function renderQuiz() {
+  document.getElementById('qz-loading').style.display = 'none';
+  var L = ['A','B','C','D'], html = '';
+  quizData.forEach(function(q, qi) {
+    if (q.type === 'mc') {
+      html += '<div class="qq" id="q' + qi + '"><div class="qn">Q' + (qi+1) + ' &middot; Multiple Choice</div><div class="qt">' + q.question + '</div><div class="opts">';
+      q.options.forEach(function(opt, oi) {
+        html += '<button class="opt" id="o' + qi + '_' + oi + '" onclick="pickMC(' + qi + ',' + oi + ')">' +
+          '<span class="ol">' + L[oi] + '</span><span>' + opt.replace(/^[A-D]\)\s*/, '') + '</span></button>';
+      });
+      html += '</div><div class="qr" id="r' + qi + '"></div></div>';
+    } else {
+      html += '<div class="qq" id="q' + qi + '"><div class="qn">Q' + (qi+1) + ' &middot; Short Answer</div><div class="qt">' + q.question + '</div>' +
+        '<div class="saw"><textarea id="sa' + qi + '" placeholder="Type your answer here..."></textarea></div></div>';
+
+```
+}
+```
+
 });
-var n=scannedPages.length;
-document.getElementById(‘page-count-lbl’).textContent=n===0?‘No pages captured yet’:n+’ page’+(n===1?’’:‘s’)+’ captured’;
-document.getElementById(‘process-btn’).disabled=n===0;
+document.getElementById(‘qz-content’).innerHTML = html;
+document.getElementById(‘qz-content’).style.display = ‘block’;
+document.getElementById(‘qz-actions’).style.display = ‘flex’;
 }
 
-function removePage(i){
-scannedPages.splice(i,1);
-renderThumbs();
+function pickMC(qi, sel) {
+var q = quizData[qi], L = [‘A’,‘B’,‘C’,‘D’], ci = L.indexOf(q.answer);
+for (var i = 0; i < 4; i++) {
+var b = document.getElementById(‘o’ + qi + ‘_’ + i);
+if (!b) continue;
+b.disabled = true;
+b.classList.remove(‘correct’,‘wrong’);
+if (i === ci) b.classList.add(‘correct’);
+else if (i === sel) b.classList.add(‘wrong’);
+}
+var r = document.getElementById(‘r’ + qi);
+r.classList.add(‘show’);
+if (sel === ci) { r.classList.add(‘cm’); r.textContent = ’Correct! ’ + q.explanation; }
+else { r.classList.add(‘wm’); r.textContent = ’Not quite. ’ + q.explanation; }
 }
 
-async function processScannedPages(){
-if(scannedPages.length===0)return;
-document.getElementById(‘process-btn’).disabled=true;
-document.getElementById(‘snap-btn’).disabled=true;
-var prog=document.getElementById(‘scan-ocr-progress’);
-prog.style.display=‘block’;
-var allText=’’;
-try{
-var worker=await Tesseract.createWorker(‘eng’,1,{logger:function(m){if(m.status===‘recognizing text’){var pct=Math.round(m.progress*100);document.getElementById(‘scan-obar’).style.width=pct+’%’;}}});
-for(var i=0;i<scannedPages.length;i++){
-document.getElementById(‘scan-ostatus’).textContent=‘Processing page ‘+(i+1)+’ of ‘+scannedPages.length+’…’;
-document.getElementById(‘scan-obar’).style.width=‘0%’;
-var result=await worker.recognize(scannedPages[i]);
-allText+=result.data.text+’\n’;
+async function submitQuiz() {
+document.getElementById(‘btn-submit’).disabled = true;
+document.getElementById(‘btn-submit’).textContent = ‘Grading…’;
+var L = [‘A’,‘B’,‘C’,‘D’], mcC = 0, mcT = 0, sa = [];
+quizData.forEach(function(q, qi) {
+if (q.type === ‘mc’) {
+mcT++;
+var ci = L.indexOf(q.answer), r = document.getElementById(‘r’ + qi);
+if (!r.classList.contains(‘show’)) {
+var b = document.getElementById(‘o’ + qi + ‘*’ + ci);
+if (b) b.classList.add(‘correct’);
+for (var i = 0; i < 4; i++) { var bt = document.getElementById(‘o’ + qi + ’*’ + i); if (bt) bt.disabled = true; }
+r.classList.add(‘show’,‘wm’); r.textContent = ‘Not answered. ’ + q.explanation;
+} else if (r.classList.contains(‘cm’)) mcC++;
+} else {
+var v = document.getElementById(‘sa’ + qi) ? document.getElementById(‘sa’ + qi).value : ‘’;
+sa.push({ qi: qi, question: q.question, answer: v.trim(), sampleAnswer: q.sampleAnswer, keywords: q.keywords });
 }
-await worker.terminate();
-src=allText.trim();
-closeScanner();
-var sr=document.getElementById(‘scan-result’);
-sr.style.display=‘block’;
-sr.innerHTML=’<div class="fbox"><span style="font-size:24px">📷</span><div style="flex:1"><div style="font-weight:500;font-size:14px">’+scannedPages.length+’ scanned page’+(scannedPages.length===1?’’:‘s’)+’</div><div style="color:var(--mut);font-size:12px">~’+src.split(/\s+/).length+’ words extracted</div></div><button style="background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;margin-left:auto;padding:4px" onclick="clearScan()">✕</button></div>’;
-scannedPages=[];
-val1();
-}catch(e){
-document.getElementById(‘scan-ostatus’).textContent=’OCR failed: ’+e.message;
+});
+var saScore = 0;
+if (sa.length > 0) {
+try {
+var sp = ‘Grade these short answers 0-10 each. Respond ONLY with raw JSON array no markdown: [{“score”:N,“feedback”:”…”},…]\n’ +
+sa.map(function(s, i) { return ‘Q’ + (i+1) + ‘: ’ + s.question + ‘\nSample: ’ + s.sampleAnswer + ‘\nKeywords: ’ + s.keywords.join(’, ‘) + ‘\nStudent: “’ + s.answer + ‘”’; }).join(’\n\n’);
+var res = await fetch(‘https://api.anthropic.com/v1/messages’, {
+method: ‘POST’,
+headers: { ‘Content-Type’: ‘application/json’ },
+body: JSON.stringify({ model: ‘claude-sonnet-4-20250514’, max_tokens: 600, messages: [{ role: ‘user’, content: sp }] })
+});
+var d = await res.json();
+var raw = d.content.map(function(b) { return b.text || ‘’; }).join(’’).replace(/`[a-z]*/g, '').replace(/`/g, ‘’).trim();
+var gs = JSON.parse(raw);
+gs.forEach(function(g, i) {
+var qi = sa[i].qi; saScore += g.score;
+var ta = document.getElementById(‘sa’ + qi); if (ta) ta.disabled = true;
+var el = document.createElement(‘div’);
+el.className = ’qr show ’ + (g.score >= 6 ? ‘cm’ : ‘wm’);
+el.textContent = ’Score: ’ + g.score + ’/10 - ’ + g.feedback;
+document.getElementById(‘q’ + qi).appendChild(el);
+});
+} catch(e) { saScore = sa.length * 5; }
 }
+var mp = mcT > 0 ? (mcC / mcT) * 100 : 100;
+var sp2 = sa.length > 0 ? (saScore / (sa.length * 10)) * 100 : 100;
+var tot = Math.round(sa.length > 0 ? (mp + sp2) / 2 : mp);
+showResult(tot, mcC, mcT);
+document.getElementById(‘qz-actions’).style.display = ‘none’;
 }
 
-function clearScan(){
-src=’’;
-scannedPages=[];
-document.getElementById(‘scan-result’).style.display=‘none’;
-val1();
+function showResult(pct, mcC, mcT) {
+var g, gc;
+if (pct >= 90) { g = ‘A’; gc = ‘A’; } else if (pct >= 80) { g = ‘B’; gc = ‘B’; }
+else if (pct >= 70) { g = ‘C’; gc = ‘C’; } else if (pct >= 60) { g = ‘D’; gc = ‘D’; } else { g = ‘F’; gc = ‘F’; }
+var msgs = { A: ‘Outstanding! Excellent grasp of the material.’, B: ‘Great work! You understood most key ideas.’,
+C: ‘Good effort! Review the explanations to strengthen understanding.’, D: ‘Keep at it! Re-reading will help a lot.’, F: “Don’t give up! Review the material carefully and try again.” };
+document.getElementById(‘result-wrap’).innerHTML =
+‘<div class="fsc"><div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:16px">Quiz Complete</div>’ +
+‘<div class="fgr ' + gc + '">’ + g + ‘</div><div class="fsub">’ + pct + ’% · ’ + msgs[g] + ‘</div>’ +
+‘<div class="fst">’ +
+‘<div><div class="sv" style="color:var(--acc)">’ + (mcT > 0 ? mcC + ‘/’ + mcT : ‘—’) + ‘</div><div class="slb">MC Correct</div></div>’ +
+‘<div><div class="sv" style="color:var(--ac2)">’ + fbScore + ‘</div><div class="slb">Summary Score</div></div>’ +
+‘<div><div class="sv" style="color:var(--ok)">’ + pct + ‘%</div><div class="slb">Quiz Score</div></div>’ +
+‘</div>’ +
+‘<div class="row" style="justify-content:center">’ +
+‘<button class="btn bs" onclick="goPanel(2)">Revise Summary</button>’ +
+‘<button class="btn bp" onclick="restart()">Start Over ↻</button>’ +
+‘</div></div>’;
+document.getElementById(‘result-wrap’).scrollIntoView({ behavior: ‘smooth’ });
 }
 
+function restart() {
+sourceText = ‘’; summaryText = ‘’; quizData = []; fbScore = 0; scannedPages = [];
+document.getElementById(‘pin’).value = ‘’;
+document.getElementById(‘usum’).value = ‘’;
+document.getElementById(‘cc’).textContent = ‘0’;
+document.getElementById(‘sc’).textContent = ‘0’;
+clearFile();
+clearScan();
+switchTab(0);
+goPanel(1);
+}
+
+function showErr(msg) {
+var el = document.getElementById(‘load-err’);
+el.textContent = msg;
+el.style.display = ‘block’;
+}
 </script>
+
 </body>
 </html>
