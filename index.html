@@ -115,12 +115,6 @@ textarea:focus{border-color:var(--acc)}
 #scan-ocr-progress{display:none;margin-top:12px}
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-<script src="https://unpkg.com/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
-
-<script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
-
 </head>
 <body>
 <div class="app">
@@ -247,8 +241,16 @@ textarea:focus{border-color:var(--acc)}
   </div>
 </div>
 </div>
+  <!-- PDF.js -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <!-- Tesseract.js v4 from jsdelivr (more Safari friendly than unpkg) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.1.4/dist/tesseract.min.js"></script>
+
 <script>
 var src='',uSum='',qdata=[],curtab='paste',fbScore=0;
+// Configure PDF.js worker
+if(typeof pdfjsLib !== 'undefined'){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';}
+window.addEventListener('load',function(){if(typeof pdfjsLib !== 'undefined'){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';}});
 function switchTab(t){curtab=t;document.querySelectorAll('.tab').forEach(function(b,i){b.classList.toggle('active',(i===0&&t==='paste')||(i===1&&t==='file')||(i===2&&t==='scan'))});document.getElementById('t-p').style.display=t==='paste'?'block':'none';document.getElementById('t-f').style.display=t==='file'?'block':'none';document.getElementById('t-s').style.display=t==='scan'?'block':'none';val1()}
 function ucc(){var v=document.getElementById('pin').value;document.getElementById('cc').textContent=v.length;val1()}
 function csum(){var v=document.getElementById('usum').value;document.getElementById('sc').textContent=v.length;document.getElementById('bfb').disabled=v.trim().length<80}
@@ -282,98 +284,96 @@ var r=new FileReader();r.onload=function(ev){src=ev.target.result;showFileLoaded
 }}
 
 async function runOCR(pdf,file){
-var statusEl=document.getElementById(‘fl-d’);
-statusEl.innerHTML=’<div class="ocr-progress"><div style="font-size:13px;font-weight:500;margin-bottom:4px">🔍 Scanned PDF detected — running OCR</div><div class="ocr-bar-wrap"><div class="ocr-bar" id="obar"></div></div><div class="ocr-status" id="ostatus">Preparing…</div></div>’;
+var statusEl=document.getElementById('fl-d');
+statusEl.innerHTML='<div class="ocr-progress"><div style="font-size:13px;font-weight:500;margin-bottom:4px">&#128269; Scanned PDF detected &mdash; running OCR</div><div class="ocr-bar-wrap"><div class="ocr-bar" id="obar"></div></div><div class="ocr-status" id="ostatus">Preparing&#8230;</div></div>';
 var numPages=pdf.numPages;
-var allText=’’;
-var worker=Tesseract.createWorker({logger:function(m){if(m.status===‘recognizing text’){var pct=Math.round(m.progress*100);document.getElementById(‘obar’).style.width=pct+’%’;document.getElementById(‘ostatus’).textContent=‘Page recognition: ‘+pct+’%’;}}});
-await worker.load();
-await worker.loadLanguage(‘eng’);
-await worker.initialize(‘eng’);
+var allText='';
+var worker=await Tesseract.createWorker('eng',1,{logger:function(m){if(m.status==='recognizing text'){var pct=Math.round(m.progress*100);document.getElementById('obar').style.width=pct+'%';document.getElementById('ostatus').textContent='Page recognition: '+pct+'%';}}});
 for(var i=1;i<=numPages;i++){
-document.getElementById(‘ostatus’).textContent=‘Processing page ‘+i+’ of ‘+numPages+’…’;
-document.getElementById(‘obar’).style.width=Math.round(((i-1)/numPages)*100)+’%’;
+document.getElementById('ostatus').textContent='Processing page '+i+' of '+numPages+'...';
+document.getElementById('obar').style.width=Math.round(((i-1)/numPages)*100)+'%';
 var page=await pdf.getPage(i);
 var viewport=page.getViewport({scale:2});
-var canvas=document.createElement(‘canvas’);
+var canvas=document.createElement('canvas');
 canvas.width=viewport.width;canvas.height=viewport.height;
-var ctx=canvas.getContext(‘2d’);
+var ctx=canvas.getContext('2d');
 await page.render({canvasContext:ctx,viewport:viewport}).promise;
 var result=await worker.recognize(canvas);
-allText+=result.data.text+’\n’;
+allText+=result.data.text+'\n';
 }
 await worker.terminate();
 src=allText.trim();
-if(src.length<50){statusEl.innerHTML=’<div class="err">OCR could not extract readable text from this PDF.</div>’;return;}
+if(src.length<50){statusEl.innerHTML='<div class="err">OCR could not extract readable text from this PDF.</div>';return;}
 showFileLoaded(file.name,Math.round(file.size/1024*10)/10,src.split(/\s+/).length);
 }
-function clf(){src=’’;document.getElementById(‘dz-w’).style.display=‘block’;document.getElementById(‘fl-d’).style.display=‘none’;val1()}
-function goP(n){document.querySelectorAll(’.panel’).forEach(function(p,i){p.classList.toggle(‘active’,i===n-1)});for(var i=1;i<=4;i++){var el=document.getElementById(‘si’+i);el.classList.remove(‘active’,‘done’);if(i<n)el.classList.add(‘done’);else if(i===n)el.classList.add(‘active’)}window.scrollTo({top:0,behavior:‘smooth’})}
-function go2(){if(curtab===‘paste’)src=document.getElementById(‘pin’).value.trim();document.getElementById(‘pv2’).textContent=src.substring(0,600)+(src.length>600?’…’:’’);document.getElementById(‘bfb’).disabled=true;goP(2)}
+function clf(){src='';document.getElementById('dz-w').style.display='block';document.getElementById('fl-d').style.display='none';val1()}
+function goP(n){document.querySelectorAll('.panel').forEach(function(p,i){p.classList.toggle('active',i===n-1)});for(var i=1;i<=4;i++){var el=document.getElementById('si'+i);el.classList.remove('active','done');if(i<n)el.classList.add('done');else if(i===n)el.classList.add('active')}window.scrollTo({top:0,behavior:'smooth'})}
+function go2(){if(curtab==='paste')src=document.getElementById('pin').value.trim();document.getElementById('pv2').textContent=src.substring(0,600)+(src.length>600?'...':'');document.getElementById('bfb').disabled=true;goP(2)}
 async function getFB(){
-uSum=document.getElementById(‘usum’).value.trim();
-if(uSum.length<80){document.getElementById(‘serr’).style.display=‘block’;return}
-document.getElementById(‘serr’).style.display=‘none’;
+uSum=document.getElementById('usum').value.trim();
+if(uSum.length<80){document.getElementById('serr').style.display='block';return}
+document.getElementById('serr').style.display='none';
 goP(3);
-document.getElementById(‘fbl’).style.display=‘flex’;
-document.getElementById(‘fbc’).style.display=‘none’;
-document.getElementById(‘fba’).style.display=‘none’;
+document.getElementById('fbl').style.display='flex';
+document.getElementById('fbc').style.display='none';
+document.getElementById('fba').style.display='none';
 var excerpt=src.substring(0,3000);
-var prompt=‘You are an expert writing tutor.\n\nORIGINAL TEXT:\n”””\n’+excerpt+’\n”””\n\nSTUDENT SUMMARY:\n”””\n’+uSum+’\n”””\n\nRespond ONLY with JSON no markdown: {“score”:integer0to100,“scoreLabel”:“Excellent or Good or Fair or Needs Work”,“positive”:“2-3 sentences on strengths”,“improve”:“2-3 specific improvement sentences”,“missing”:“1-2 sentences on missed key ideas or write Nothing major missed”,“tip”:“one actionable writing tip”}’;
+var prompt='You are an expert writing tutor.\n\nORIGINAL TEXT:\n"""\n'+excerpt+'\n"""\n\nSTUDENT SUMMARY:\n"""\n'+uSum+'\n"""\n\nRespond ONLY with JSON no markdown: {"score":integer0to100,"scoreLabel":"Excellent or Good or Fair or Needs Work","positive":"2-3 sentences on strengths","improve":"2-3 specific improvement sentences","missing":"1-2 sentences on missed key ideas or write Nothing major missed","tip":"one actionable writing tip"}';
 try{
-var res=await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:1000,messages:[{role:‘user’,content:prompt}]})});
+var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
 var d=await res.json();
-var raw=d.content.map(function(b){return b.text||’’}).join(’’).replace(/`json|`/g,’’).trim();
+var raw=d.content.map(function(b){return b.text||''}).join('').replace(/```json|```/g,'').trim();
 var fb=JSON.parse(raw);
 fbScore=fb.score;
 renderFB(fb);
 }catch(e){
-document.getElementById(‘fbl’).style.display=‘none’;
-document.getElementById(‘fbc’).innerHTML=’<div class="err">Something went wrong. Please try again.</div>’;
-document.getElementById(‘fbc’).style.display=‘block’;
+document.getElementById('fbl').style.display='none';
+document.getElementById('fbc').innerHTML='<div class="err">Something went wrong. Please try again.</div>';
+document.getElementById('fbc').style.display='block';
 }}
 function renderFB(fb){
-document.getElementById(‘fbl’).style.display=‘none’;
+document.getElementById('fbl').style.display='none';
 var r=46,circ=2*Math.PI*r,off=circ-(fb.score/100)*circ;
-var rc=fb.score>=80?‘var(–ok)’:fb.score>=60?‘var(–acc)’:‘var(–ac3)’;
-document.getElementById(‘fbc’).innerHTML=
-‘<div class="rw"><div class="ring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="'+r+'"/><circle class="rf" cx="55" cy="55" r="'+r+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="rfill" style="stroke:'+rc+'"/></svg><div class="rtx"><div class="rn">’+fb.score+’</div><div class="rlb">/ 100</div></div></div><div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px;">’+fb.scoreLabel+’</div></div>’+
-‘<div class="fbb pos"><div class="fblb">✓ What you did well</div><p>’+fb.positive+’</p></div>’+
-‘<div class="fbb imp"><div class="fblb">↑ How to improve</div><p>’+fb.improve+’</p></div>’+
-‘<div class="fbb mis"><div class="fblb">◯ Key ideas coverage</div><p>’+fb.missing+’</p></div>’+
-‘<div style="background:var(--s2);border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px">💡 Pro Tip</div><p style="font-size:14px">’+fb.tip+’</p></div>’;
-document.getElementById(‘fbc’).style.display=‘block’;
-document.getElementById(‘fba’).style.display=‘flex’;
-setTimeout(function(){var el=document.getElementById(‘rfill’);if(el)el.style.strokeDashoffset=off},100)}
+var rc=fb.score>=80?'var(--ok)':fb.score>=60?'var(--acc)':'var(--ac3)';
+document.getElementById('fbc').innerHTML=
+'<div class="rw"><div class="ring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="'+r+'"/><circle class="rf" cx="55" cy="55" r="'+r+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="rfill" style="stroke:'+rc+'"/></svg><div class="rtx"><div class="rn">'+fb.score+'</div><div class="rlb">/ 100</div></div></div><div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px;">'+fb.scoreLabel+'</div></div>'+
+'<div class="fbb pos"><div class="fblb">&#10003; What you did well</div><p>'+fb.positive+'</p></div>'+
+'<div class="fbb imp"><div class="fblb">&#8593; How to improve</div><p>'+fb.improve+'</p></div>'+
+'<div class="fbb mis"><div class="fblb">&#9711; Key ideas coverage</div><p>'+fb.missing+'</p></div>'+
+'<div style="background:var(--s2);border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px">&#128161; Pro Tip</div><p style="font-size:14px">'+fb.tip+'</p></div>';
+document.getElementById('fbc').style.display='block';
+document.getElementById('fba').style.display='flex';
+setTimeout(function(){var el=document.getElementById('rfill');if(el)el.style.strokeDashoffset=off},100)}
 async function startQuiz(){
 goP(4);
-document.getElementById(‘ql’).style.display=‘flex’;
-document.getElementById(‘qc’).style.display=‘none’;
-document.getElementById(‘qa’).style.display=‘none’;
-document.getElementById(‘fscw’).style.display=‘none’;
+document.getElementById('ql').style.display='flex';
+document.getElementById('qc').style.display='none';
+document.getElementById('qa').style.display='none';
+document.getElementById('fscw').style.display='none';
 var excerpt=src.substring(0,3000);
-var prompt=‘Create a 5-question reading comprehension quiz for this text:\n”””\n’+excerpt+’\n”””\nUse at least 3 multiple-choice (4 options) and 1-2 short-answer questions.\nRespond ONLY with a JSON array no markdown.\nFor MC: {“type”:“mc”,“question”:”…”,“options”:[“A) …”,“B) …”,“C) …”,“D) …”],“answer”:“A”,“explanation”:”…”}\nFor SA: {“type”:“sa”,“question”:”…”,“sampleAnswer”:”…”,“keywords”:[“w1”,“w2”,“w3”]}’;
+var prompt='Create a 5-question reading comprehension quiz for this text:\n"""\n'+excerpt+'\n"""\nUse at least 3 multiple-choice (4 options) and 1-2 short-answer questions.\nRespond ONLY with a JSON array no markdown.\nFor MC: {"type":"mc","question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"A","explanation":"..."}\nFor SA: {"type":"sa","question":"...","sampleAnswer":"...","keywords":["w1","w2","w3"]}';
 try{
-var res=await fetch(‘https://api.anthropic.com/v1/messages’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’},body:JSON.stringify({model:‘claude-sonnet-4-20250514’,max_tokens:1500,messages:[{role:‘user’,content:prompt}]})});
+var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
 var d=await res.json();
-var raw=d.content.map(function(b){return b.text||’’}).join(’’).replace(/`json|`/g,’’).trim();
+var raw=d.content.map(function(b){return b.text||''}).join('').replace(/```json|```/g,'').trim();
 qdata=JSON.parse(raw);
 renderQuiz();
 }catch(e){
-document.getElementById(‘ql’).style.display=‘none’;
-document.getElementById(‘qc’).innerHTML=’<div class="err">Could not generate quiz. Please try again.</div>’;
-document.getElementById(‘qc’).style.display=‘block’;
+document.getElementById('ql').style.display='none';
+document.getElementById('qc').innerHTML='<div class="err">Could not generate quiz. Please try again.</div>';
+document.getElementById('qc').style.display='block';
 }}
 function renderQuiz(){
-document.getElementById(‘ql’).style.display=‘none’;
-var L=[‘A’,‘B’,‘C’,‘D’],html=’’;
+document.getElementById('ql').style.display='none';
+var L=['A','B','C','D'],html='';
 qdata.forEach(function(q,qi){
-if(q.type===‘mc’){
-html+=’<div class="qq" id="q'+qi+'"><div class="qn">Question ‘+(qi+1)+’ · Multiple Choice</div><div class="qt">’+q.question+’</div><div class="opts">’;
-q.options.forEach(function(opt,oi){html+=’<button class="opt" id="o'+qi+'_'+oi+'" onclick="selMC('+qi+','+oi+')"><span class="ol">’+L[oi]+’</span><span>’+opt.replace(/^[A-D])\s*/,’’)+’</span></button>’});
-html+=’</div><div class="qr" id="r'+qi+'"></div></div>’;
+if(q.type==='mc'){
+html+='<div class="qq" id="q'+qi+'"><div class="qn">Question '+(qi+1)+' &middot; Multiple Choice</div><div class="qt">'+q.question+'</div><div class="opts">';
+q.options.forEach(function(opt,oi){html+='<button class="opt" id="o'+qi+'_'+oi+'" onclick="selMC('+qi+','+oi+')"><span class="ol">'+L[oi]+'</span><span>'+opt.replace(/^[A-D]\)\s*/,'')+'</span></button>'});
+html+='</div><div class="qr" id="r'+qi+'"></div></div>';
 }else{
-html+=’<div class="qq" id="q'+qi+'"><div class="qn">Question ‘+(qi+1)+’ · Short Answer</div><div class="qt">’+q.question+’</div><div class="saw"><textarea id="sa'+qi+'" placeholder="Type your answer here..."></textarea></div></div>’;
+html+='<div class="qq" id="q'+qi+'"><div class="qn">Question '+(qi+1)+' &middot; Short Answer</div><div class="qt">'+q.question+'</div><div class="saw"><textarea id="sa'+qi+'" placeholder="Type your answer here..."></textarea></div></div>';
+
 }});
 document.getElementById(‘qc’).innerHTML=html;
 document.getElementById(‘qc’).style.display=‘block’;
@@ -413,8 +413,8 @@ gs.forEach(function(g,i){
 var qi=sa[i].qi;saScore+=g.score;
 var ta=document.getElementById(‘sa’+qi);if(ta)ta.disabled=true;
 var fe=document.createElement(‘div’);
-fe.className=’qr show ’+(g.score>=6?‘cm’:‘wm’);
-fe.textContent=’Score: ‘+g.score+’/10 - ’+g.feedback;
+fe.className=‘qr show ‘+(g.score>=6?‘cm’:‘wm’);
+fe.textContent=‘Score: ‘+g.score+’/10 - ‘+g.feedback;
 document.getElementById(‘q’+qi).appendChild(fe)});
 }catch(e){saScore=sa.length*5}}
 var mp=mcT>0?(mcC/mcT)*100:100;
@@ -511,10 +511,7 @@ var prog=document.getElementById(‘scan-ocr-progress’);
 prog.style.display=‘block’;
 var allText=’’;
 try{
-var worker=Tesseract.createWorker({logger:function(m){if(m.status===‘recognizing text’){var pct=Math.round(m.progress*100);document.getElementById(‘scan-obar’).style.width=pct+’%’;}}});
-await worker.load();
-await worker.loadLanguage(‘eng’);
-await worker.initialize(‘eng’);
+var worker=await Tesseract.createWorker(‘eng’,1,{logger:function(m){if(m.status===‘recognizing text’){var pct=Math.round(m.progress*100);document.getElementById(‘scan-obar’).style.width=pct+’%’;}}});
 for(var i=0;i<scannedPages.length;i++){
 document.getElementById(‘scan-ostatus’).textContent=‘Processing page ‘+(i+1)+’ of ‘+scannedPages.length+’…’;
 document.getElementById(‘scan-obar’).style.width=‘0%’;
