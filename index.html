@@ -238,7 +238,7 @@ async function readPDF(file) {
 }
 
 async function callClaude(prompt, maxTok) {
-  var res = await fetch('https://api.anthropic.com/v1/messages', {
+  var res = await fetch('https://summarai.bananaman-mrnibls.workers.dev', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: maxTok || 1000, messages: [{ role: 'user', content: prompt }] })
