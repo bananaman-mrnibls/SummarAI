@@ -116,14 +116,9 @@ textarea:focus{border-color:var(–acc)}
 </head>
 <body style="background:#0d0d0f;color:#f0f0f5">
 
-<div id="initial-loader" style="position:fixed;inset:0;background:#0d0d0f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;z-index:9999">
-  <div style="font-family:system-ui,sans-serif;font-weight:800;font-size:24px;color:#f0f0f5">Summar<span style="color:#c8f060">AI</span></div>
-  <div style="width:32px;height:32px;border:3px solid #2a2a35;border-top-color:#c8f060;border-radius:50%;animation:spin .8s linear infinite"></div>
-</div>
-
 <!-- AUTH SCREEN -->
 
-<div id="screen-auth" class="auth-wrap">
+<div id="screen-auth" class="auth-wrap" style="display:flex">
   <div class="auth-card">
     <div class="auth-logo">Summar<span>AI</span></div>
     <div style="display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:4px;margin-bottom:24px">
@@ -266,6 +261,7 @@ function showScreen(name) {
   document.getElementById('screen-auth').style.display = name === 'auth' ? 'flex' : 'none';
   document.getElementById('screen-history').style.display = name === 'history' ? 'block' : 'none';
   document.getElementById('screen-app').style.display = name === 'app' ? 'block' : 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 async function checkSession() {
@@ -624,14 +620,7 @@ document.getElementById(‘fileinput’).addEventListener(‘change’, function
 document.getElementById(‘auth-pass’).addEventListener(‘keydown’, function(e) { if (e.key === ‘Enter’) document.getElementById(‘auth-btn’).click(); });
 
 // ── Init ──────────────────────────────────────────────────────────────
-function hideLoader() {
-var l = document.getElementById(‘initial-loader’);
-if (l) l.style.display = ‘none’;
-}
-checkSession().then(hideLoader).catch(function(e) {
-hideLoader();
-showScreen(‘auth’);
-});
+checkSession();
 </script>
 
 </body>
