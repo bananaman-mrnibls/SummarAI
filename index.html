@@ -121,9 +121,9 @@ textarea:focus{border-color:var(–acc)}
 <div id="screen-auth" class="auth-wrap" style="display:flex">
   <div class="auth-card">
     <div class="auth-logo">Summar<span>AI</span></div>
-    <div style="display:flex;gap:4px;background:var(--s2);border-radius:10px;padding:4px;margin-bottom:24px">
-      <button id="tab-signin" style="flex:1;padding:8px;border-radius:7px;border:none;background:var(--sur);color:var(--txt);font-family:DM Sans,sans-serif;font-size:14px;font-weight:500;cursor:pointer">Sign In</button>
-      <button id="tab-signup" style="flex:1;padding:8px;border-radius:7px;border:none;background:transparent;color:var(--mut);font-family:DM Sans,sans-serif;font-size:14px;font-weight:500;cursor:pointer">Sign Up</button>
+    <div style="display:flex;gap:4px;background:#1e1e24;border-radius:10px;padding:4px;margin-bottom:24px">
+      <button id="tab-signin" style="flex:1;padding:8px;border-radius:7px;border:none;background:#16161a;color:#f0f0f5;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer">Sign In</button>
+      <button id="tab-signup" style="flex:1;padding:8px;border-radius:7px;border:none;background:transparent;color:#888899;font-family:system-ui,sans-serif;font-size:14px;font-weight:600;cursor:pointer">Sign Up</button>
     </div>
     <div class="auth-err" id="auth-err"></div>
     <input class="inp" type="email" id="auth-email" placeholder="Email address" autocomplete="email">
@@ -281,10 +281,10 @@ function setAuthMode(mode) {
   var isSignin = mode === 'signin';
   document.getElementById('auth-btn').textContent = isSignin ? 'Sign In' : 'Create Account';
   document.getElementById('auth-err').style.display = 'none';
-  document.getElementById('tab-signin').style.background = isSignin ? 'var(--sur)' : 'transparent';
-  document.getElementById('tab-signin').style.color = isSignin ? 'var(--txt)' : 'var(--mut)';
-  document.getElementById('tab-signup').style.background = isSignin ? 'transparent' : 'var(--sur)';
-  document.getElementById('tab-signup').style.color = isSignin ? 'var(--mut)' : 'var(--txt)';
+  document.getElementById('tab-signin').style.background = isSignin ? '#16161a' : 'transparent';
+  document.getElementById('tab-signin').style.color = isSignin ? '#f0f0f5' : '#888899';
+  document.getElementById('tab-signup').style.background = isSignin ? 'transparent' : '#16161a';
+  document.getElementById('tab-signup').style.color = isSignin ? '#888899' : '#f0f0f5';
   document.getElementById('auth-pass').autocomplete = isSignin ? 'current-password' : 'new-password';
 }
 document.getElementById('tab-signin').addEventListener('click', function() { setAuthMode('signin'); });
@@ -620,6 +620,7 @@ document.getElementById(‘fileinput’).addEventListener(‘change’, function
 document.getElementById(‘auth-pass’).addEventListener(‘keydown’, function(e) { if (e.key === ‘Enter’) document.getElementById(‘auth-btn’).click(); });
 
 // ── Init ──────────────────────────────────────────────────────────────
+setAuthMode(‘signin’);
 checkSession();
 </script>
 
