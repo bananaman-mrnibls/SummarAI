@@ -147,7 +147,7 @@ textarea:focus{border-color:#c8f060}
         <div style="background:#1e1e24;border:1px solid #2a2a35;border-radius:12px;padding:14px 16px;flex:1;min-width:120px">
           <div style="font-size:12px;font-weight:600;color:#c8f060;margin-bottom:4px">Step 2</div>
           <div style="font-size:14px;font-weight:500;color:#f0f0f5;margin-bottom:2px">Summarize</div>
-          <div style="font-size:12px;color:#888899">You write it in your own words</div>
+          <div style="font-size:12px;color:#888899">Write it in your own words</div>
         </div>
         <div style="background:#1e1e24;border:1px solid #2a2a35;border-radius:12px;padding:14px 16px;flex:1;min-width:120px">
           <div style="font-size:12px;font-weight:600;color:#c8f060;margin-bottom:4px">Step 3</div>
@@ -364,7 +364,15 @@ async function doAuth() {
   try {
     if (isNew) {
       var r=await sbReq('/auth/v1/signup','POST',{email:email,password:pass});
-      if (r.ok) { aok.textContent='Account created! Check your email to confirm, then sign in.'; aok.style.display='block'; g('ANEW').checked=false; }
+      if (r.ok) {
+        g('ANEW').checked=false;
+        var r2=await sbReq('/auth/v1/token?grant_type=password','POST',{email:email,password:pass});
+        if (r2.ok && r2.data && r2.data.access_token) {
+          utoken=r2.data.access_token; uid=r2.data.user.id; uemail=r2.data.user.email;
+          try{localStorage.setItem('sat',utoken);localStorage.setItem('suid',uid);localStorage.setItem('sem',uemail);}catch(e){}
+          g('HEM').textContent=uemail; screen('H'); loadHistory();
+        } else { aok.textContent='Account created! You can now sign in.'; aok.style.display='block'; }
+      }
       else { ae.textContent=(r.data&&r.data.msg)||(r.data&&r.data.error_description)||'Sign up failed.'; ae.style.display='block'; }
     } else {
       var r=await sbReq('/auth/v1/token?grant_type=password','POST',{email:email,password:pass});
