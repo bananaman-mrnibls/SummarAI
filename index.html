@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,159 +6,139 @@
 <title>SummarAI</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
-:root{–bg:#0d0d0f;–sur:#16161a;–s2:#1e1e24;–bor:#2a2a35;–acc:#c8f060;–ac2:#60b8f0;–ac3:#f060b8;–txt:#f0f0f5;–mut:#888899;–dan:#f06060;–ok:#60f0a8}
+:root{--bg:#0d0d0f;--sur:#16161a;--s2:#1e1e24;--bor:#2a2a35;--acc:#c8f060;--ac2:#60b8f0;--ac3:#f060b8;--txt:#f0f0f5;--mut:#888899;--dan:#f06060;--ok:#60f0a8}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d0d0f;color:#f0f0f5;font-family:“DM Sans”,sans-serif;font-size:15px;line-height:1.65;min-height:100vh}
+body{background:#0d0d0f;color:#f0f0f5;font-family:"DM Sans",sans-serif;font-size:15px;line-height:1.65;min-height:100vh}
 .app{max-width:860px;margin:0 auto;padding:40px 24px 80px}
 header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
-.logo{font-family:“Syne”,sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px}
-.logo span{color:var(–acc)}
-.bdg{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(–mut);border:1px solid var(–bor);padding:4px 12px;border-radius:100px}
+.logo{font-family:"Syne",sans-serif;font-weight:800;font-size:22px;letter-spacing:-.5px}
+.logo span{color:#c8f060}
 .steps{display:flex;align-items:center;margin-bottom:40px}
-.step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(–mut);transition:color .3s}
-.step.active{color:var(–txt)}.step.done{color:var(–acc)}
-.snum{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:“Syne”,sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
-.step.active .snum,.step.done .snum{background:var(–acc);border-color:var(–acc);color:#000}
-.scon{flex:1;height:1px;background:var(–bor);margin:0 10px;max-width:80px}
-.card{background:var(–sur);border:1px solid var(–bor);border-radius:16px;padding:32px;margin-bottom:20px}
-.ct{font-family:“Syne”,sans-serif;font-weight:700;font-size:18px;margin-bottom:6px}
-.cs{color:var(–mut);font-size:13.5px;margin-bottom:24px}
-.tabs{display:flex;gap:4px;background:var(–s2);border-radius:10px;padding:4px;margin-bottom:20px}
-.tab{padding:7px 18px;border-radius:7px;font-size:13.5px;font-weight:500;cursor:pointer;border:none;background:transparent;color:var(–mut);transition:all .2s;font-family:“DM Sans”,sans-serif}
-.tab.active{background:var(–sur);color:var(–txt);box-shadow:0 1px 4px rgba(0,0,0,.4)}
-textarea{width:100%;background:var(–s2);border:1px solid var(–bor);border-radius:10px;color:var(–txt);font-family:“DM Sans”,sans-serif;font-size:14.5px;line-height:1.7;padding:14px 16px;resize:vertical;outline:none;transition:border-color .2s;min-height:180px}
-textarea:focus{border-color:var(–acc)}
-.dz{border:2px dashed var(–bor);border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.dz:hover,.dz.drag{border-color:var(–acc);background:rgba(200,240,96,.04)}
+.step{display:flex;align-items:center;gap:10px;font-size:13px;color:#888899;transition:color .3s}
+.step.active{color:#f0f0f5}.step.done{color:#c8f060}
+.snum{width:28px;height:28px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-family:"Syne",sans-serif;font-weight:700;font-size:12px;flex-shrink:0}
+.step.active .snum,.step.done .snum{background:#c8f060;border-color:#c8f060;color:#000}
+.scon{flex:1;height:1px;background:#2a2a35;margin:0 10px;max-width:80px}
+.card{background:#16161a;border:1px solid #2a2a35;border-radius:16px;padding:32px;margin-bottom:20px}
+.ct{font-family:"Syne",sans-serif;font-weight:700;font-size:18px;margin-bottom:6px}
+.cs{color:#888899;font-size:13.5px;margin-bottom:24px}
+.tabs{display:flex;gap:4px;background:#1e1e24;border-radius:10px;padding:4px;margin-bottom:20px}
+.tab{padding:7px 18px;border-radius:7px;font-size:13.5px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#888899;transition:all .2s;font-family:"DM Sans",sans-serif}
+.tab.on{background:#16161a;color:#f0f0f5;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+textarea{width:100%;background:#1e1e24;border:1px solid #2a2a35;border-radius:10px;color:#f0f0f5;font-family:"DM Sans",sans-serif;font-size:14.5px;line-height:1.7;padding:14px 16px;resize:vertical;outline:none;transition:border-color .2s;min-height:180px}
+textarea:focus{border-color:#c8f060}
+.dz{border:2px dashed #2a2a35;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.dz:hover{border-color:#c8f060;background:rgba(200,240,96,.04)}
 .dz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.fbox{display:flex;align-items:center;gap:12px;background:var(–s2);border:1px solid var(–bor);border-radius:10px;padding:14px 16px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:“DM Sans”,sans-serif;font-size:14.5px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
-.bp{background:#c8f060;color:#000}
-.bp:hover:not(:disabled){background:#d8ff70;transform:translateY(-1px)}
-.bp:disabled{opacity:.4;cursor:not-allowed}
-.bs{background:var(–s2);color:var(–txt);border:1px solid var(–bor)}.bs:hover{background:var(–bor)}
-.bg{background:transparent;color:var(–mut);border:1px solid var(–bor)}.bg:hover{color:var(–txt)}
-.ld{display:flex;align-items:center;gap:12px;color:var(–mut);font-size:14px;padding:16px 0}
-.sp{width:20px;height:20px;border:2px solid var(–bor);border-top-color:var(–acc);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+.fbox{display:flex;align-items:center;gap:12px;background:#1e1e24;border:1px solid #2a2a35;border-radius:10px;padding:14px 16px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:10px;font-family:"DM Sans",sans-serif;font-size:14.5px;font-weight:500;cursor:pointer;border:none;transition:all .2s}
+.bp{background:#c8f060;color:#000}.bp:disabled{opacity:.4;cursor:not-allowed}
+.bs{background:#1e1e24;color:#f0f0f5;border:1px solid #2a2a35}
+.bg{background:transparent;color:#888899;border:1px solid #2a2a35}
+.sp{width:20px;height:20px;border:2px solid #2a2a35;border-top-color:#c8f060;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.fbb{background:var(–s2);border-radius:12px;padding:20px;margin-bottom:16px;border-left:3px solid var(–bor)}
-.fbb.pos{border-left-color:var(–ok)}.fbb.imp{border-left-color:var(–ac2)}.fbb.mis{border-left-color:var(–ac3)}
+.ld{display:flex;align-items:center;gap:12px;color:#888899;font-size:14px;padding:16px 0}
+.fbb{background:#1e1e24;border-radius:12px;padding:20px;margin-bottom:16px;border-left:3px solid #2a2a35}
+.fbb.pos{border-left-color:#60f0a8}.fbb.imp{border-left-color:#60b8f0}.fbb.mis{border-left-color:#f060b8}
 .fblb{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.fbb.pos .fblb{color:var(–ok)}.fbb.imp .fblb{color:var(–ac2)}.fbb.mis .fblb{color:var(–ac3)}
+.fbb.pos .fblb{color:#60f0a8}.fbb.imp .fblb{color:#60b8f0}.fbb.mis .fblb{color:#f060b8}
 .fbb p{font-size:14px;line-height:1.65}
 .rw{display:flex;flex-direction:column;align-items:center;margin:0 auto 24px}
 .ring{position:relative;width:110px;height:110px}
 .ring svg{transform:rotate(-90deg)}
-.rt{fill:none;stroke:var(–s2);stroke-width:8}
+.rt{fill:none;stroke:#1e1e24;stroke-width:8}
 .rf{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease}
 .rtx{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.rn{font-family:“Syne”,sans-serif;font-weight:800;font-size:28px;line-height:1}
-.rlb{font-size:11px;color:var(–mut)}
-.qq{background:var(–s2);border:1px solid var(–bor);border-radius:12px;padding:22px;margin-bottom:16px}
-.qn{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(–acc);margin-bottom:8px}
+.rn{font-family:"Syne",sans-serif;font-weight:800;font-size:28px;line-height:1}
+.rlb{font-size:11px;color:#888899}
+.qq{background:#1e1e24;border:1px solid #2a2a35;border-radius:12px;padding:22px;margin-bottom:16px}
+.qn{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#c8f060;margin-bottom:8px}
 .qt{font-size:15px;font-weight:500;margin-bottom:16px}
 .opts{display:flex;flex-direction:column;gap:8px}
-.opt{display:flex;align-items:flex-start;gap:10px;background:var(–sur);border:1px solid var(–bor);border-radius:8px;padding:11px 14px;cursor:pointer;font-size:14px;transition:all .18s;text-align:left;color:var(–txt);font-family:“DM Sans”,sans-serif;width:100%}
-.opt:hover:not(:disabled){border-color:var(–acc);background:rgba(200,240,96,.05)}
+.opt{display:flex;align-items:flex-start;gap:10px;background:#16161a;border:1px solid #2a2a35;border-radius:8px;padding:11px 14px;cursor:pointer;font-size:14px;text-align:left;color:#f0f0f5;font-family:"DM Sans",sans-serif;width:100%}
 .opt:disabled{cursor:default}
-.opt.correct{border-color:var(–ok);background:rgba(96,240,168,.1)}
-.opt.wrong{border-color:var(–dan);background:rgba(240,96,96,.08)}
-.ol{width:22px;height:22px;border-radius:50%;background:var(–s2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:“Syne”,sans-serif;margin-top:1px}
-.qr{font-size:13px;margin-top:10px;padding:10px 14px;border-radius:8px;background:var(–sur);color:var(–mut);line-height:1.5;display:none}
-.qr.show{display:block}.qr.cm{color:var(–ok)}.qr.wm{color:var(–dan)}
+.opt.correct{border-color:#60f0a8;background:rgba(96,240,168,.1)}
+.opt.wrong{border-color:#f06060;background:rgba(240,96,96,.08)}
+.ol{width:22px;height:22px;border-radius:50%;background:#1e1e24;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:"Syne",sans-serif;margin-top:1px}
+.qr{font-size:13px;margin-top:10px;padding:10px 14px;border-radius:8px;background:#16161a;color:#888899;line-height:1.5;display:none}
+.qr.show{display:block}.qr.cm{color:#60f0a8}.qr.wm{color:#f06060}
 .saw textarea{min-height:80px;font-size:14px;margin-top:8px}
-.panel{display:none}.panel.active{display:block;animation:fu .35s ease}
+.panel{display:none}.panel.on{display:block;animation:fu .35s ease}
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.fsc{text-align:center;padding:40px;background:var(–sur);border:1px solid var(–bor);border-radius:16px;margin-top:20px}
-.fgr{font-family:“Syne”,sans-serif;font-size:72px;font-weight:800;line-height:1;margin-bottom:8px}
-.fgr.A{color:var(–ok)}.fgr.B{color:var(–acc)}.fgr.C{color:var(–ac2)}.fgr.D{color:var(–ac3)}.fgr.F{color:var(–dan)}
-.fsub{color:var(–mut);margin-bottom:24px}
+.fsc{text-align:center;padding:40px;background:#16161a;border:1px solid #2a2a35;border-radius:16px;margin-top:20px}
+.fgr{font-family:"Syne",sans-serif;font-size:72px;font-weight:800;line-height:1;margin-bottom:8px}
+.fgr.A{color:#60f0a8}.fgr.B{color:#c8f060}.fgr.C{color:#60b8f0}.fgr.D{color:#f060b8}.fgr.F{color:#f06060}
+.fsub{color:#888899;margin-bottom:24px}
 .fst{display:flex;justify-content:center;gap:32px;margin-bottom:28px}
-.sv{font-family:“Syne”,sans-serif;font-weight:700;font-size:26px}
-.slb{font-size:12px;color:var(–mut)}
-.err{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:12px 16px;color:var(–dan);font-size:13.5px;margin-top:12px}
-.cc{text-align:right;font-size:12px;color:var(–mut);margin-top:6px}
-.tp{background:var(–s2);border-radius:10px;padding:16px;max-height:120px;overflow-y:auto;font-size:13.5px;color:var(–mut);line-height:1.65;border:1px solid var(–bor);margin-bottom:16px}
-.tp strong{color:var(–txt);display:block;margin-bottom:6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.sv{font-family:"Syne",sans-serif;font-weight:700;font-size:26px}
+.slb{font-size:12px;color:#888899}
+.err{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:12px 16px;color:#f06060;font-size:13.5px;margin-top:12px}
+.cc{text-align:right;font-size:12px;color:#888899;margin-top:6px}
+.tp{background:#1e1e24;border-radius:10px;padding:16px;max-height:120px;overflow-y:auto;font-size:13.5px;color:#888899;line-height:1.65;border:1px solid #2a2a35;margin-bottom:16px}
+.tp strong{color:#f0f0f5;display:block;margin-bottom:6px;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
 .row{display:flex;gap:10px;flex-wrap:wrap}
-
-/* Auth styles */
-.auth-wrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:#0d0d0f}
-.auth-card{background:#16161a;border:1px solid #2a2a35;border-radius:20px;padding:40px;width:100%;max-width:420px}
-.auth-logo{font-family:“Syne”,sans-serif,system-ui;font-weight:800;font-size:26px;letter-spacing:-.5px;margin-bottom:8px;color:#f0f0f5}
-.auth-logo span{color:var(–acc)}
-.auth-sub{color:var(–mut);font-size:14px;margin-bottom:32px}
-.inp{width:100%;background:#1e1e24;border:1px solid #2a2a35;border-radius:10px;color:#f0f0f5;font-family:“DM Sans”,sans-serif,system-ui;font-size:14.5px;padding:12px 16px;outline:none;transition:border-color .2s;margin-bottom:14px}
-.inp:focus{border-color:var(–acc)}
-.auth-switch{text-align:center;margin-top:16px;font-size:13.5px;color:var(–mut)}
-.auth-switch a{color:var(–acc);cursor:pointer;text-decoration:none}
-.auth-switch a:hover{text-decoration:underline}
-.auth-err{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:10px 14px;color:var(–dan);font-size:13px;margin-bottom:14px;display:none}
-
-/* History styles */
-.hist-item{background:var(–s2);border:1px solid var(–bor);border-radius:12px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:border-color .2s}
-.hist-item:hover{border-color:var(–acc)}
-.hist-score{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:“Syne”,sans-serif;font-weight:800;font-size:16px;flex-shrink:0}
-.hist-info{flex:1;min-width:0}
-.hist-title{font-weight:500;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px}
-.hist-meta{font-size:12px;color:var(–mut)}
-.hist-del{background:none;border:none;color:var(–mut);cursor:pointer;font-size:18px;padding:4px;flex-shrink:0;transition:color .2s}
-.hist-del:hover{color:var(–dan)}
-.empty-hist{text-align:center;padding:48px 24px;color:var(–mut)}
-.empty-hist div{font-size:40px;margin-bottom:12px}
-.nav-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
-.nav-right{display:flex;align-items:center;gap:12px}
-.nav-email{font-size:13px;color:var(–mut)}
+/* Auth */
+.ascreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;background:#0d0d0f}
+.acard{background:#16161a;border:1px solid #2a2a35;border-radius:20px;padding:40px;width:100%;max-width:400px}
+.alogo{font-family:"Syne",sans-serif;font-weight:800;font-size:26px;margin-bottom:4px;color:#f0f0f5}
+.alogo span{color:#c8f060}
+.asub{color:#888899;font-size:13px;margin-bottom:28px}
+.ainp{width:100%;background:#1e1e24;border:1px solid #2a2a35;border-radius:10px;color:#f0f0f5;font-family:"DM Sans",sans-serif;font-size:15px;padding:13px 16px;outline:none;margin-bottom:12px;-webkit-appearance:none}
+.ainp:focus{border-color:#c8f060}
+.aerr{background:rgba(240,96,96,.1);border:1px solid rgba(240,96,96,.3);border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
+.aok{background:rgba(96,240,168,.1);border:1px solid rgba(96,240,168,.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#60f0a8;margin-bottom:12px;display:none}
+.achk{display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:pointer;font-size:14px;color:#888899;-webkit-tap-highlight-color:transparent}
+.achk input{width:20px;height:20px;cursor:pointer;accent-color:#c8f060}
+/* History */
+.hscreen{display:none}
+.hitem{background:#1e1e24;border:1px solid #2a2a35;border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer}
+.hscore{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Syne",sans-serif;font-weight:800;font-size:15px;flex-shrink:0}
+.hinfo{flex:1;min-width:0}
+.htitle{font-weight:500;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.hmeta{font-size:12px;color:#888899}
+.hdel{background:none;border:none;color:#888899;cursor:pointer;font-size:18px;padding:6px;flex-shrink:0}
+.nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:40px}
+.nemail{font-size:12px;color:#888899;margin-right:8px}
 </style>
-
 </head>
-<body style="background:#0d0d0f;color:#f0f0f5">
+<body>
 
-<!-- AUTH SCREEN -->
-
-<div id="screen-auth" class="auth-wrap" style="display:flex">
-  <div class="auth-card">
-    <div class="auth-logo">Summar<span>AI</span></div>
-    <div style="margin-bottom:24px;font-size:13px;color:#888899">Sign in or create a new account</div>
-    <div class="auth-err" id="auth-err"></div>
-    <input class="inp" type="email" id="auth-email" placeholder="Email address" autocomplete="email">
-    <input class="inp" type="password" id="auth-pass" placeholder="Password" autocomplete="current-password">
-    <label style="display:flex;align-items:center;gap:10px;margin-bottom:16px;cursor:pointer;font-size:14px;color:#888899">
-      <input type="checkbox" id="is-signup" style="width:18px;height:18px;cursor:pointer">
-      I am a new user (Sign Up)
-    </label>
-    <button class="btn bp" id="auth-btn" style="width:100%;justify-content:center">Continue</button>
+<div class="ascreen" id="SA">
+  <div class="acard">
+    <div class="alogo">Summar<span>AI</span></div>
+    <div class="asub">Your AI-powered study tool</div>
+    <div class="aerr" id="AE"></div>
+    <div class="aok" id="AOK"></div>
+    <input class="ainp" type="email" id="AEM" placeholder="Email address" autocomplete="email">
+    <input class="ainp" type="password" id="APW" placeholder="Password" autocomplete="current-password">
+    <label class="achk"><input type="checkbox" id="ANEW"> New user? Create account</label>
+    <button class="btn bp" id="AGO" style="width:100%;justify-content:center;font-size:15px;padding:13px">Continue</button>
   </div>
 </div>
 
-<!-- HISTORY SCREEN -->
-
-<div id="screen-history" style="display:none">
+<div class="hscreen" id="SH">
   <div class="app">
-    <div class="nav-bar">
-      <div class="logo">Summar<span style="color:var(--acc)">AI</span></div>
-      <div class="nav-right">
-        <span class="nav-email" id="nav-email"></span>
-        <button class="btn bs" id="btn-new" style="padding:8px 18px;font-size:13px">+ New Session</button>
-        <button class="btn bg" id="btn-signout" style="padding:8px 18px;font-size:13px">Sign Out</button>
+    <div class="nav">
+      <div class="logo">Summar<span>AI</span></div>
+      <div style="display:flex;align-items:center">
+        <span class="nemail" id="HEM"></span>
+        <button class="btn bs" id="HNEW" style="padding:7px 14px;font-size:13px;margin-right:8px">+ New</button>
+        <button class="btn bg" id="HOUT" style="padding:7px 14px;font-size:13px">Sign Out</button>
       </div>
     </div>
-    <div class="ct" style="margin-bottom:6px">Your Sessions</div>
-    <div class="cs" style="margin-bottom:24px">Tap a session to review it, or start a new one.</div>
-    <div id="hist-list"></div>
+    <div class="ct" style="margin-bottom:4px">Your Sessions</div>
+    <div class="cs">Tap a session to review, or start a new one.</div>
+    <div id="HL" style="margin-top:20px"></div>
   </div>
 </div>
 
-<!-- MAIN APP SCREEN -->
-
-<div id="screen-app" style="display:none">
+<div style="display:none" id="SM">
   <div class="app">
-    <div class="nav-bar">
-      <div class="logo">Summar<span style="color:var(--acc)">AI</span></div>
-      <div class="nav-right">
-        <button class="btn bs" id="btn-history" style="padding:8px 18px;font-size:13px">&#8592; History</button>
-        <button class="btn bg" id="btn-signout2" style="padding:8px 18px;font-size:13px">Sign Out</button>
+    <div class="nav">
+      <div class="logo">Summar<span>AI</span></div>
+      <div>
+        <button class="btn bs" id="MHIST" style="padding:7px 14px;font-size:13px;margin-right:8px">&#8592; History</button>
+        <button class="btn bg" id="MOUT" style="padding:7px 14px;font-size:13px">Sign Out</button>
       </div>
     </div>
     <div class="steps">
@@ -171,44 +150,42 @@ textarea:focus{border-color:var(–acc)}
       <div class="scon"></div>
       <div class="step" id="si4"><div class="snum">4</div><span>Quiz</span></div>
     </div>
-    <div class="panel active" id="p1">
+    <div class="panel on" id="p1">
       <div class="card">
         <div class="ct">Load your text</div>
         <div class="cs">Paste a passage or upload a PDF to get started.</div>
         <div class="tabs">
-          <button class="tab active" id="tab0">Paste Text</button>
-          <button class="tab" id="tab1">Upload PDF</button>
+          <button class="tab on" id="T0">Paste Text</button>
+          <button class="tab" id="T1">Upload PDF</button>
         </div>
-        <div id="tp0">
-          <textarea id="pin" placeholder="Paste an article, chapter, or any passage here..."></textarea>
-          <div class="cc"><span id="cc">0</span> characters</div>
+        <div id="TP0">
+          <textarea id="PIN" placeholder="Paste an article, chapter, or any passage here..."></textarea>
+          <div class="cc"><span id="CC">0</span> characters</div>
         </div>
-        <div id="tp1" style="display:none">
-          <div class="dz" id="dz">
-            <input type="file" id="fileinput" accept=".pdf">
+        <div id="TP1" style="display:none">
+          <div class="dz" id="DZ">
+            <input type="file" id="FI" accept=".pdf">
             <div style="font-size:36px;margin-bottom:10px">&#128196;</div>
-            <div style="color:var(--mut);font-size:14px"><strong style="color:var(--txt)">Drop a PDF file</strong> or click to browse</div>
+            <div style="color:#888899;font-size:14px"><strong style="color:#f0f0f5">Drop a PDF</strong> or tap to browse</div>
           </div>
-          <div id="finfo" style="display:none"></div>
+          <div id="FINF" style="display:none"></div>
         </div>
-        <div id="p1err" class="err" style="display:none"></div>
-        <div style="margin-top:20px">
-          <button class="btn bp" id="btn1" disabled>Continue to Summarize &#8594;</button>
-        </div>
+        <div id="P1E" class="err" style="display:none"></div>
+        <div style="margin-top:20px"><button class="btn bp" id="B1" disabled>Continue &#8594;</button></div>
       </div>
     </div>
     <div class="panel" id="p2">
       <div class="card">
         <div class="ct">Read &amp; Summarize</div>
-        <div class="cs">Read the passage below, then write your summary in your own words.</div>
-        <div class="tp"><strong>Source Text</strong><span id="src-prev"></span></div>
-        <label style="font-size:13px;color:var(--mut);font-weight:500;display:block;margin-bottom:8px">Your Summary</label>
-        <textarea id="usum" placeholder="Write the main ideas, key points, and important details..." style="min-height:200px"></textarea>
-        <div class="cc"><span id="sc">0</span> characters</div>
-        <div id="sumerr" class="err" style="display:none">Please write at least 80 characters before getting feedback.</div>
+        <div class="cs">Read the passage, then write your summary below.</div>
+        <div class="tp"><strong>Source Text</strong><span id="SPREV"></span></div>
+        <label style="font-size:13px;color:#888899;font-weight:500;display:block;margin-bottom:8px">Your Summary</label>
+        <textarea id="USUM" placeholder="Write the main ideas and key points..." style="min-height:200px"></textarea>
+        <div class="cc"><span id="SC">0</span> characters</div>
+        <div id="SUME" class="err" style="display:none">Please write at least 80 characters.</div>
         <div class="row" style="margin-top:20px">
-          <button class="btn bg" id="btnback2">&#8592; Back</button>
-          <button class="btn bp" id="btnfb" disabled>Get AI Feedback &#8594;</button>
+          <button class="btn bg" id="BB2">&#8592; Back</button>
+          <button class="btn bp" id="BFB" disabled>Get AI Feedback &#8594;</button>
         </div>
       </div>
     </div>
@@ -216,448 +193,271 @@ textarea:focus{border-color:var(–acc)}
       <div class="card">
         <div class="ct">AI Feedback</div>
         <div class="cs">Here is a detailed breakdown of your summary.</div>
-        <div id="fbload" class="ld"><div class="sp"></div>&nbsp;Analyzing your summary&#8230;</div>
-        <div id="fbcontent" style="display:none"></div>
-        <div id="fbactions" class="row" style="display:none;margin-top:24px">
-          <button class="btn bg" id="btnback3">&#8592; Revise Summary</button>
-          <button class="btn bp" id="btnquiz">Take the Quiz &#8594;</button>
+        <div id="FBL" class="ld"><div class="sp"></div>&nbsp;Analyzing&#8230;</div>
+        <div id="FBC" style="display:none"></div>
+        <div id="FBA" class="row" style="display:none;margin-top:24px">
+          <button class="btn bg" id="BB3">&#8592; Revise</button>
+          <button class="btn bp" id="BQZ">Take Quiz &#8594;</button>
         </div>
       </div>
     </div>
     <div class="panel" id="p4">
       <div class="card">
         <div class="ct">Knowledge Quiz</div>
-        <div class="cs">Answer questions about the text to test your comprehension.</div>
-        <div id="qzload" class="ld"><div class="sp"></div>&nbsp;Generating quiz&#8230;</div>
-        <div id="qzcontent" style="display:none"></div>
-        <div id="qzactions" class="row" style="display:none;margin-top:20px">
-          <button class="btn bp" id="btnsub">Submit Quiz &#8594;</button>
+        <div class="cs">Test your comprehension.</div>
+        <div id="QZL" class="ld"><div class="sp"></div>&nbsp;Generating quiz&#8230;</div>
+        <div id="QZC" style="display:none"></div>
+        <div id="QZA" class="row" style="display:none;margin-top:20px">
+          <button class="btn bp" id="BSUB">Submit Quiz &#8594;</button>
         </div>
       </div>
-      <div id="result"></div>
+      <div id="RES"></div>
     </div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.min.js"></script>
-
 <script>
-const SUPABASE_URL = 'https://rmxckkpteblnvjdgugcm.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_BjaS3DNgdawXHXwU9oy0sQ_LFNrSnRb';
-const PROXY = 'https://bananaman-mrnibls-summarai-proxy.hf.space';
+if (typeof pdfjsLib !== 'undefined') pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
 
-// Lightweight Supabase REST helpers - no library needed
-async function sbFetch(path, method, body, token) {
-  var headers = { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + (token || SUPABASE_KEY) };
-  var res = await fetch(SUPABASE_URL + path, { method: method || 'GET', headers: headers, body: body ? JSON.stringify(body) : undefined });
-  var text = await res.text();
-  try { return { data: text ? JSON.parse(text) : null, status: res.status }; }
-  catch(e) { return { data: null, status: res.status, error: text }; }
+
+var DBG = document.getElementById('DBG');
+function dbg(msg) { 
+  console.log('[DBG]', msg); 
+  DBG.style.display='block';
+  DBG.innerHTML += '<div>' + msg + '</div>';
+  DBG.scrollTop = DBG.scrollHeight;
+}
+dbg('Script started');
+
+var SB_URL = 'https://rmxckkpteblnvjdgugcm.supabase.co';
+var SB_KEY = 'sb_publishable_BjaS3DNgdawXHXwU9oy0sQ_LFNrSnRb';
+var PROXY  = 'https://bananaman-mrnibls-summarai-proxy.hf.space';
+var src='', fbScore=0, fbData=null, quizData=[], activeTab=0, uid=null, utoken=null, uemail=null, sessionId=null;
+
+function g(id) { return document.getElementById(id); }
+
+function screen(s) {
+  g('SA').style.display = s==='A' ? 'flex' : 'none';
+  g('SH').style.display = s==='H' ? 'block' : 'none';
+  g('SM').style.display = s==='M' ? 'block' : 'none';
+  window.scrollTo(0,0);
 }
 
-// Auth token storage
-function getToken() { try { return localStorage.getItem('sb_token'); } catch(e) { return null; } }
-function setToken(t) { try { localStorage.setItem('sb_token', t); } catch(e) {} }
-function clearToken() { try { localStorage.removeItem('sb_token'); localStorage.removeItem('sb_uid'); localStorage.removeItem('sb_email'); } catch(e) {} }
-function getUID() { try { return localStorage.getItem('sb_uid'); } catch(e) { return null; } }
-function setUID(u) { try { localStorage.setItem('sb_uid', u); } catch(e) {} }
-function getEmail() { try { return localStorage.getItem('sb_email'); } catch(e) { return null; } }
-function setEmail(e) { try { localStorage.setItem('sb_email', e); } catch(e) {} }
-
-if (typeof pdfjsLib !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.4.120/build/pdf.worker.min.js';
+function goPanel(n) {
+  var ps = document.querySelectorAll('.panel');
+  for (var i=0;i<ps.length;i++) { ps[i].classList.remove('on'); if(i===n-1) ps[i].classList.add('on'); }
+  for (var i=1;i<=4;i++) { var el=g('si'+i); el.classList.remove('active','done'); if(i<n) el.classList.add('done'); else if(i===n) el.classList.add('active'); }
+  window.scrollTo(0,0);
 }
 
-var src = '', fbScore = 0, fbData = null, quizData = [], activeTab = 0, currentUser = null, currentSessionId = null;
-
-// ── Auth ─────────────────────────────────────────────────────────────
-var authMode = 'signin';
-
-function showScreen(name) {
-  document.getElementById('screen-auth').style.display = name === 'auth' ? 'flex' : 'none';
-  document.getElementById('screen-history').style.display = name === 'history' ? 'block' : 'none';
-  document.getElementById('screen-app').style.display = name === 'app' ? 'block' : 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function switchTab(n) {
+  activeTab=n;
+  g('T0').classList.toggle('on', n===0); g('T1').classList.toggle('on', n===1);
+  g('TP0').style.display=n===0?'block':'none'; g('TP1').style.display=n===1?'block':'none';
+  checkB1();
 }
 
-async function checkSession() {
-  var token = getToken();
-  if (!token) { showScreen('auth'); return; }
-  // Verify token is still valid
-  var res = await sbFetch('/auth/v1/user', 'GET', null, token);
-  if (res.status === 200 && res.data && res.data.id) {
-    currentUser = { id: res.data.id, email: res.data.email };
-    document.getElementById('nav-email').textContent = currentUser.email;
-    showScreen('history');
-    loadHistory();
-  } else {
-    clearToken();
-    showScreen('auth');
-  }
+function checkB1() { g('B1').disabled = src.trim().length < 100; }
+
+function clearFile() { src=''; g('DZ').style.display='block'; g('FINF').style.display='none'; checkB1(); }
+
+function readPDF(file) {
+  if (typeof pdfjsLib==='undefined') { g('P1E').textContent='PDF reader not loaded.'; g('P1E').style.display='block'; return; }
+  g('DZ').style.display='none'; g('P1E').style.display='none';
+  var fi=g('FINF'); fi.style.display='block';
+  fi.innerHTML='<div class="fbox"><div class="sp"></div><span style="color:#888899">&nbsp;Reading PDF&hellip;</span></div>';
+  var r=new FileReader();
+  r.onload=function(e) {
+    pdfjsLib.getDocument({data:new Uint8Array(e.target.result)}).promise.then(function(pdf) {
+      var pages=[], i=1;
+      function nextPage() {
+        if (i>pdf.numPages) { src=pages.join('\n').trim(); if(src.length<50){fi.style.display='none';g('DZ').style.display='block';g('P1E').textContent='No extractable text found.';g('P1E').style.display='block';return;} var kb=Math.round(file.size/102.4)/10; fi.innerHTML='<div class="fbox"><span style="font-size:22px">&#128196;</span><div style="flex:1"><div style="font-weight:500;font-size:14px">'+file.name+'</div><div style="color:#888899;font-size:12px">'+kb+' KB &middot; ~'+src.split(/\s+/).length+' words</div></div><button id="CLRB" style="background:none;border:none;color:#888899;cursor:pointer;font-size:18px;padding:4px">&#x2715;</button></div>'; g('CLRB').addEventListener('click',clearFile); checkB1(); return; }
+        pdf.getPage(i).then(function(page){ page.getTextContent().then(function(ct){ pages.push(ct.items.map(function(s){return s.str;}).join(' ')); i++; nextPage(); }); });
+      }
+      nextPage();
+    }).catch(function(err){fi.style.display='none';g('DZ').style.display='block';g('P1E').textContent='Could not read PDF: '+err.message;g('P1E').style.display='block';});
+  };
+  r.readAsArrayBuffer(file);
 }
 
-function setAuthMode(mode) {
-  authMode = mode;
-  var isSignin = mode === 'signin';
-  document.getElementById('auth-btn').textContent = isSignin ? 'Sign In' : 'Create Account';
-  document.getElementById('auth-err').style.display = 'none';
-  document.getElementById('tab-signin').style.background = isSignin ? '#16161a' : 'transparent';
-  document.getElementById('tab-signin').style.color = isSignin ? '#f0f0f5' : '#888899';
-  document.getElementById('tab-signup').style.background = isSignin ? 'transparent' : '#16161a';
-  document.getElementById('tab-signup').style.color = isSignin ? '#888899' : '#f0f0f5';
-  document.getElementById('auth-pass').autocomplete = isSignin ? 'current-password' : 'new-password';
+async function callAI(prompt, maxTok) {
+  var res = await fetch(PROXY, {method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:maxTok||1000,messages:[{role:'user',content:prompt}]})});
+  var d = await res.json();
+  if (!d.content) throw new Error('API error: '+JSON.stringify(d));
+  return d.content.map(function(b){return b.text||'';}).join('').replace(/```json/g,'').replace(/```/g,'').trim();
 }
-// tab clicks handled by onclick attributes
 
-async function doAuth() {
-  var email = document.getElementById('auth-email').value.trim();
-  var pass = document.getElementById('auth-pass').value;
-  var isSignup = document.getElementById('is-signup').checked;
-  var errEl = document.getElementById('auth-err');
-  var btn = document.getElementById('auth-btn');
-  errEl.style.display = 'none';
-  if (!email || !pass) { errEl.style.color = '#f06060'; errEl.textContent = 'Please enter your email and password.'; errEl.style.display = 'block'; return; }
-  btn.disabled = true; btn.textContent = 'Please wait...';
-  if (isSignup) {
-    var res = await sbFetch('/auth/v1/signup', 'POST', { email: email, password: pass });
-    if (res.status === 200 || res.status === 201) {
-      errEl.style.color = '#60f0a8'; errEl.textContent = 'Account created! Check your email to confirm, then sign in.'; errEl.style.display = 'block';
+async function sbReq(path, method, body) {
+  var headers={'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+(utoken||SB_KEY),'Prefer':'return=representation'};
+  var res=await fetch(SB_URL+path,{method:method||'GET',headers:headers,body:body?JSON.stringify(body):undefined});
+  try{return{ok:res.ok,status:res.status,data:await res.json()};}catch(e){return{ok:res.ok,status:res.status,data:null};}
+}
+
+function initAuth() {
+  try { utoken=localStorage.getItem('sat'); uid=localStorage.getItem('suid'); uemail=localStorage.getItem('sem'); } catch(e){}
+  if (utoken && uid) { g('HEM').textContent=uemail||''; screen('H'); loadHistory(); }
+  else screen('A');
+}
+
+dbg('Attaching AGO listeners');
+g('AGO').addEventListener('touchend', function(e) { e.preventDefault(); doAuth(); });
+g('AGO').addEventListener('click', function() { doAuth(); });
+async function doAuth() { dbg('doAuth called');
+  var email=g('AEM').value.trim(), pass=g('APW').value, isNew=g('ANEW').checked;
+  var ae=g('AE'), aok=g('AOK');
+  ae.style.display='none'; aok.style.display='none';
+  if (!email||!pass) { ae.textContent='Please enter email and password.'; ae.style.display='block'; return; }
+  g('AGO').disabled=true; g('AGO').textContent='Please wait...';
+  try {
+    if (isNew) {
+      var r=await sbReq('/auth/v1/signup','POST',{email:email,password:pass});
+      if (r.ok) { aok.textContent='Account created! Check your email to confirm, then sign in.'; aok.style.display='block'; g('ANEW').checked=false; }
+      else { ae.textContent=(r.data&&r.data.msg)||(r.data&&r.data.error_description)||'Sign up failed.'; ae.style.display='block'; }
     } else {
-      errEl.style.color = '#f06060'; errEl.textContent = (res.data && res.data.msg) || (res.data && res.data.error_description) || 'Sign up failed.'; errEl.style.display = 'block';
+      var r=await sbReq('/auth/v1/token?grant_type=password','POST',{email:email,password:pass});
+      if (r.ok && r.data && r.data.access_token) {
+        utoken=r.data.access_token; uid=r.data.user.id; uemail=r.data.user.email;
+        try{localStorage.setItem('sat',utoken);localStorage.setItem('suid',uid);localStorage.setItem('sem',uemail);}catch(e){}
+        g('HEM').textContent=uemail; screen('H'); loadHistory();
+      } else { ae.textContent=(r.data&&r.data.error_description)||'Invalid email or password.'; ae.style.display='block'; }
     }
-    btn.disabled = false; btn.textContent = 'Continue';
-  } else {
-    var res = await sbFetch('/auth/v1/token?grant_type=password', 'POST', { email: email, password: pass });
-    if (res.status === 200 && res.data && res.data.access_token) {
-      setToken(res.data.access_token);
-      setUID(res.data.user.id);
-      setEmail(res.data.user.email);
-      currentUser = { id: res.data.user.id, email: res.data.user.email };
-      document.getElementById('nav-email').textContent = currentUser.email;
-      showScreen('history'); loadHistory();
-    } else {
-      errEl.style.color = '#f06060'; errEl.textContent = (res.data && res.data.error_description) || 'Invalid email or password.'; errEl.style.display = 'block';
-    }
-    btn.disabled = false; btn.textContent = 'Continue';
-  }
-};
-
-async function signOut() {
-  clearToken();
-  currentUser = null; src = ''; fbData = null; quizData = []; currentSessionId = null;
-  showScreen('auth');
+  } catch(e) { ae.textContent='Error: '+e.message; ae.style.display='block'; }
+  g('AGO').disabled=false; g('AGO').textContent='Continue';
 }
 
-document.getElementById('btn-signout').addEventListener('click', signOut);
-document.getElementById('btn-signout2').addEventListener('click', signOut);
+g('APW').addEventListener('keydown', function(e){ if(e.key==='Enter') g('AGO').click(); });
 
-// ── History ───────────────────────────────────────────────────────────
+function signOut() {
+  utoken=null;uid=null;uemail=null;
+  try{localStorage.removeItem('sat');localStorage.removeItem('suid');localStorage.removeItem('sem');}catch(e){}
+  screen('A');
+}
+
+g('HOUT').addEventListener('click', signOut);
+g('MOUT').addEventListener('click', signOut);
+
 async function loadHistory() {
-  var list = document.getElementById('hist-list');
-  list.innerHTML = '<div class="ld"><div class="sp"></div>&nbsp;Loading sessions&hellip;</div>';
-  var token = getToken();
-  var res = await sbFetch('/rest/v1/sessions?select=*&order=created_at.desc', 'GET', null, token);
-  var data = res.data;
-  var error = res.status >= 400 ? res.data : null;
-  if (error) { list.innerHTML = '<div class="err">Could not load sessions.</div>'; return; }
-  if (!data || data.length === 0) {
-    list.innerHTML = '<div class="empty-hist"><div>&#128214;</div><div style="font-weight:600;margin-bottom:6px">No sessions yet</div><div style="font-size:13px">Start a new session to see your history here.</div></div>';
-    return;
-  }
-  list.innerHTML = '';
-  data.forEach(function(s) {
-    var score = s.feedback_score || 0;
-    var clr = score >= 80 ? 'var(--ok)' : score >= 60 ? 'var(--acc)' : 'var(--ac3)';
-    var bg = score >= 80 ? 'rgba(96,240,168,.15)' : score >= 60 ? 'rgba(200,240,96,.15)' : 'rgba(240,96,96,.15)';
-    var date = new Date(s.created_at).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
-    var preview = (s.source_text || '').substring(0, 80).replace(/\n/g, ' ') + '...';
-    var item = document.createElement('div');
-    item.className = 'hist-item';
-    item.innerHTML = '<div class="hist-score" style="background:' + bg + ';color:' + clr + '">' + score + '</div>' +
-      '<div class="hist-info"><div class="hist-title">' + preview + '</div>' +
-      '<div class="hist-meta">' + date + (s.quiz_score !== null ? ' &middot; Quiz: ' + s.quiz_score + '%' : '') + (s.feedback_label ? ' &middot; ' + s.feedback_label : '') + '</div></div>' +
-      '<button class="hist-del" data-id="' + s.id + '" title="Delete">&#x2715;</button>';
-    item.querySelector('.hist-del').addEventListener('click', async function(e) {
-      e.stopPropagation();
-      if (!confirm('Delete this session?')) return;
-      await sbFetch('/rest/v1/sessions?id=eq.' + this.dataset.id, 'DELETE', null, getToken());
-      loadHistory();
-    });
-    item.addEventListener('click', function() { viewSession(s); });
-    list.appendChild(item);
+  var hl=g('HL');
+  hl.innerHTML='<div class="ld"><div class="sp"></div>&nbsp;Loading&hellip;</div>';
+  var r=await sbReq('/rest/v1/sessions?select=*&order=created_at.desc','GET');
+  if (!r.ok||!r.data) { hl.innerHTML='<div class="err">Could not load sessions.</div>'; return; }
+  if (!r.data.length) { hl.innerHTML='<div style="text-align:center;padding:48px;color:#888899"><div style="font-size:36px;margin-bottom:12px">&#128214;</div>No sessions yet. Start a new one!</div>'; return; }
+  hl.innerHTML='';
+  r.data.forEach(function(s) {
+    var sc=s.feedback_score||0, clr=sc>=80?'#60f0a8':sc>=60?'#c8f060':'#f060b8', bg=sc>=80?'rgba(96,240,168,.15)':sc>=60?'rgba(200,240,96,.15)':'rgba(240,96,96,.15)';
+    var dt=new Date(s.created_at).toLocaleDateString('en-CA',{month:'short',day:'numeric',year:'numeric'});
+    var pr=(s.source_text||'').substring(0,80).replace(/\n/g,' ')+'...';
+    var d=document.createElement('div'); d.className='hitem';
+    d.innerHTML='<div class="hscore" style="background:'+bg+';color:'+clr+'">'+sc+'</div><div class="hinfo"><div class="htitle">'+pr+'</div><div class="hmeta">'+dt+(s.quiz_score!=null?' &middot; Quiz: '+s.quiz_score+'%':'')+(s.feedback_label?' &middot; '+s.feedback_label:'')+'</div></div><button class="hdel" data-id="'+s.id+'">&#x2715;</button>';
+    d.querySelector('.hdel').addEventListener('click',function(e){e.stopPropagation();if(!confirm('Delete?'))return;sbReq('/rest/v1/sessions?id=eq.'+this.dataset.id,'DELETE').then(loadHistory);});
+    d.addEventListener('click',function(){viewSession(s);});
+    hl.appendChild(d);
   });
 }
 
 function viewSession(s) {
-  src = s.source_text || '';
-  currentSessionId = s.id;
-  document.getElementById('src-prev').textContent = src.substring(0, 600) + (src.length > 600 ? '...' : '');
-  document.getElementById('usum').value = s.summary || '';
-  document.getElementById('sc').textContent = (s.summary || '').length;
-  document.getElementById('btnfb').disabled = (s.summary || '').trim().length < 80;
-  showScreen('app');
-  if (s.feedback_score) {
-    fbData = { score: s.feedback_score, scoreLabel: s.feedback_label, positive: s.feedback_positive, improve: s.feedback_improve, missing: s.feedback_missing, tip: s.feedback_tip };
-    fbScore = s.feedback_score;
-    renderFeedback(fbData);
-    goPanel(3);
-  } else {
-    goPanel(2);
-  }
+  src=s.source_text||''; sessionId=s.id;
+  g('SPREV').textContent=src.substring(0,600)+(src.length>600?'...':'');
+  g('USUM').value=s.summary||''; g('SC').textContent=(s.summary||'').length;
+  g('BFB').disabled=(s.summary||'').trim().length<80;
+  screen('M');
+  if (s.feedback_score) { fbData={score:s.feedback_score,scoreLabel:s.feedback_label,positive:s.feedback_positive,improve:s.feedback_improve,missing:s.feedback_missing,tip:s.feedback_tip}; fbScore=s.feedback_score; renderFB(fbData); goPanel(3); }
+  else goPanel(2);
 }
 
-document.getElementById('btn-new').addEventListener('click', function() {
-  src = ''; fbData = null; quizData = []; currentSessionId = null; activeTab = 0;
-  document.getElementById('pin').value = ''; document.getElementById('usum').value = '';
-  document.getElementById('cc').textContent = '0'; document.getElementById('sc').textContent = '0';
-  clearFile(); switchTab(0); goPanel(1); showScreen('app');
-});
-
-document.getElementById('btn-history').addEventListener('click', function() {
-  showScreen('history'); loadHistory();
-});
-
-// ── Save session ──────────────────────────────────────────────────────
-async function saveSession(fb, quizScore) {
-  if (!currentUser) return;
-  var token = getToken();
-  var sum = document.getElementById('usum').value.trim();
-  var payload = {
-    user_id: currentUser.id,
-    source_text: src.substring(0, 5000),
-    summary: sum,
-    feedback_score: fb.score,
-    feedback_label: fb.scoreLabel,
-    feedback_positive: fb.positive,
-    feedback_improve: fb.improve,
-    feedback_missing: fb.missing,
-    feedback_tip: fb.tip,
-    quiz_score: quizScore !== undefined ? quizScore : null
-  };
-  if (currentSessionId) {
-    await sbFetch('/rest/v1/sessions?id=eq.' + currentSessionId, 'PATCH', payload, token);
-  } else {
-    var res = await sbFetch('/rest/v1/sessions', 'POST', payload, token);
-    if (res.data && res.data[0]) currentSessionId = res.data[0].id;
-  }
+async function saveSession(fb, qScore) {
+  if (!uid) return;
+  var pay={user_id:uid,source_text:src.substring(0,5000),summary:g('USUM').value.trim(),feedback_score:fb.score,feedback_label:fb.scoreLabel,feedback_positive:fb.positive,feedback_improve:fb.improve,feedback_missing:fb.missing,feedback_tip:fb.tip,quiz_score:qScore!=null?qScore:null};
+  if (sessionId) { await sbReq('/rest/v1/sessions?id=eq.'+sessionId,'PATCH',pay); }
+  else { var r=await sbReq('/rest/v1/sessions','POST',pay); if(r.data&&r.data[0]) sessionId=r.data[0].id; }
 }
 
-// ── Navigation ────────────────────────────────────────────────────────
-function goPanel(n) {
-  document.querySelectorAll('.panel').forEach(function(p, i) { p.classList.toggle('active', i === n - 1); });
-  for (var i = 1; i <= 4; i++) {
-    var el = document.getElementById('si' + i);
-    el.classList.remove('active', 'done');
-    if (i < n) el.classList.add('done');
-    else if (i === n) el.classList.add('active');
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function switchTab(n) {
-  activeTab = n;
-  document.getElementById('tab0').classList.toggle('active', n === 0);
-  document.getElementById('tab1').classList.toggle('active', n === 1);
-  document.getElementById('tp0').style.display = n === 0 ? 'block' : 'none';
-  document.getElementById('tp1').style.display = n === 1 ? 'block' : 'none';
-  checkBtn1();
-}
-
-function checkBtn1() { document.getElementById('btn1').disabled = src.trim().length < 100; }
-
-function clearFile() {
-  src = '';
-  document.getElementById('dz').style.display = 'block';
-  document.getElementById('finfo').style.display = 'none';
-  checkBtn1();
-}
-
-// ── PDF ───────────────────────────────────────────────────────────────
-function readPDF(file) {
-  document.getElementById('p1err').style.display = 'none';
-  if (typeof pdfjsLib === 'undefined') { document.getElementById('p1err').textContent = 'PDF reader not loaded yet.'; document.getElementById('p1err').style.display = 'block'; return; }
-  document.getElementById('dz').style.display = 'none';
-  var fi = document.getElementById('finfo');
-  fi.style.display = 'block';
-  fi.innerHTML = '<div class="fbox"><div class="sp"></div><span style="color:var(--mut);font-size:14px">&nbsp;Reading PDF&hellip;</span></div>';
-  var reader = new FileReader();
-  reader.onload = async function(e) {
-    try {
-      var pdf = await pdfjsLib.getDocument({ data: new Uint8Array(e.target.result) }).promise;
-      var pages = [];
-      for (var i = 1; i <= pdf.numPages; i++) {
-        var page = await pdf.getPage(i);
-        var ct = await page.getTextContent();
-        pages.push(ct.items.map(function(s) { return s.str; }).join(' '));
-      }
-      src = pages.join('\n').trim();
-      if (src.length < 50) { fi.style.display = 'none'; document.getElementById('dz').style.display = 'block'; document.getElementById('p1err').textContent = 'This PDF has no extractable text.'; document.getElementById('p1err').style.display = 'block'; return; }
-      var kb = Math.round(file.size / 102.4) / 10;
-      fi.innerHTML = '<div class="fbox"><span style="font-size:22px">&#128196;</span><div style="flex:1"><div style="font-weight:500;font-size:14px">' + file.name + '</div><div style="color:var(--mut);font-size:12px">' + kb + ' KB &middot; ~' + src.split(/\s+/).length + ' words</div></div><button id="clrbtn" style="background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:4px">&#x2715;</button></div>';
-      document.getElementById('clrbtn').addEventListener('click', clearFile);
-      checkBtn1();
-    } catch(err) { fi.style.display = 'none'; document.getElementById('dz').style.display = 'block'; document.getElementById('p1err').textContent = 'Could not read PDF: ' + err.message; document.getElementById('p1err').style.display = 'block'; }
-  };
-  reader.readAsArrayBuffer(file);
-}
-
-// ── Claude/Groq ───────────────────────────────────────────────────────
-async function callAI(prompt, maxTok) {
-  var res = await fetch(PROXY, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: maxTok || 1000, messages: [{ role: 'user', content: prompt }] })
-  });
-  var d = await res.json();
-  if (!d.content) throw new Error('API error: ' + JSON.stringify(d));
-  return d.content.map(function(b) { return b.text || ''; }).join('').replace(/```json/g, '').replace(/```/g, '').trim();
-}
-
-// ── Feedback ──────────────────────────────────────────────────────────
 async function getFeedback() {
-  var sum = document.getElementById('usum').value.trim();
-  if (sum.length < 80) { document.getElementById('sumerr').style.display = 'block'; return; }
-  document.getElementById('sumerr').style.display = 'none';
-  goPanel(3);
-  document.getElementById('fbload').style.display = 'flex';
-  document.getElementById('fbcontent').style.display = 'none';
-  document.getElementById('fbactions').style.display = 'none';
+  var sum=g('USUM').value.trim();
+  if (sum.length<80) { g('SUME').style.display='block'; return; }
+  g('SUME').style.display='none'; goPanel(3);
+  g('FBL').style.display='flex'; g('FBC').style.display='none'; g('FBA').style.display='none';
   try {
-    var raw = await callAI('You are an expert writing tutor. Analyze this student summary and respond ONLY with a JSON object, no markdown. Original text: ' + src.substring(0, 3000) + ' Student summary: ' + sum + ' JSON: {"score":75,"scoreLabel":"Good","positive":"...","improve":"...","missing":"...","tip":"..."}', 1000);
-    fbData = JSON.parse(raw);
-    fbScore = fbData.score;
-    renderFeedback(fbData);
-    await saveSession(fbData, null);
-  } catch(err) {
-    document.getElementById('fbcontent').innerHTML = '<div class="err">Error: ' + err.message + '</div>';
-    document.getElementById('fbcontent').style.display = 'block';
-  }
-  document.getElementById('fbload').style.display = 'none';
+    var raw=await callAI('You are an expert writing tutor. Analyze this student summary and respond ONLY with a JSON object, no markdown. Original text: '+src.substring(0,3000)+' Student summary: '+sum+' JSON: {"score":75,"scoreLabel":"Good","positive":"...","improve":"...","missing":"...","tip":"..."}',1000);
+    fbData=JSON.parse(raw); fbScore=fbData.score;
+    renderFB(fbData); await saveSession(fbData,null);
+  } catch(e) { g('FBC').innerHTML='<div class="err">Error: '+e.message+'</div>'; g('FBC').style.display='block'; }
+  g('FBL').style.display='none';
 }
 
-function renderFeedback(fb) {
-  var r = 46, circ = +(2 * Math.PI * r).toFixed(3), off = +(circ - (fb.score / 100) * circ).toFixed(3);
-  var clr = fb.score >= 80 ? 'var(--ok)' : fb.score >= 60 ? 'var(--acc)' : 'var(--ac3)';
-  document.getElementById('fbcontent').innerHTML =
-    '<div class="rw"><div class="ring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="' + r + '"/><circle class="rf" cx="55" cy="55" r="' + r + '" stroke-dasharray="' + circ + '" stroke-dashoffset="' + circ + '" id="rfill" style="stroke:' + clr + '"/></svg><div class="rtx"><div class="rn">' + fb.score + '</div><div class="rlb">/ 100</div></div></div><div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px">' + fb.scoreLabel + '</div></div>' +
-    '<div class="fbb pos"><div class="fblb">&#10003; What you did well</div><p>' + fb.positive + '</p></div>' +
-    '<div class="fbb imp"><div class="fblb">&#8593; How to improve</div><p>' + fb.improve + '</p></div>' +
-    '<div class="fbb mis"><div class="fblb">&#9711; Key ideas coverage</div><p>' + fb.missing + '</p></div>' +
-    '<div style="background:var(--s2);border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:6px">&#128161; Pro Tip</div><p style="font-size:14px">' + fb.tip + '</p></div>';
-  document.getElementById('fbcontent').style.display = 'block';
-  document.getElementById('fbactions').style.display = 'flex';
-  setTimeout(function() { var el = document.getElementById('rfill'); if (el) el.style.strokeDashoffset = off; }, 100);
+function renderFB(fb) {
+  var r=46,circ=+(2*Math.PI*r).toFixed(3),off=+(circ-(fb.score/100)*circ).toFixed(3);
+  var clr=fb.score>=80?'#60f0a8':fb.score>=60?'#c8f060':'#f060b8';
+  g('FBC').innerHTML='<div class="rw"><div class="ring"><svg width="110" height="110" viewBox="0 0 110 110"><circle class="rt" cx="55" cy="55" r="'+r+'"/><circle class="rf" cx="55" cy="55" r="'+r+'" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="RFL" style="stroke:'+clr+'"/></svg><div class="rtx"><div class="rn">'+fb.score+'</div><div class="rlb">/ 100</div></div></div><div style="margin-top:10px;font-family:Syne,sans-serif;font-weight:700;font-size:15px">'+fb.scoreLabel+'</div></div>'+'<div class="fbb pos"><div class="fblb">&#10003; What you did well</div><p>'+fb.positive+'</p></div>'+'<div class="fbb imp"><div class="fblb">&#8593; How to improve</div><p>'+fb.improve+'</p></div>'+'<div class="fbb mis"><div class="fblb">&#9711; Key ideas</div><p>'+fb.missing+'</p></div>'+'<div style="background:#1e1e24;border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#c8f060;margin-bottom:6px">&#128161; Pro Tip</div><p style="font-size:14px">'+fb.tip+'</p></div>';
+  g('FBC').style.display='block'; g('FBA').style.display='flex';
+  setTimeout(function(){var el=g('RFL');if(el)el.style.strokeDashoffset=off;},100);
 }
 
-// ── Quiz ──────────────────────────────────────────────────────────────
 async function startQuiz() {
-  goPanel(4);
-  document.getElementById('qzload').style.display = 'flex';
-  document.getElementById('qzcontent').style.display = 'none';
-  document.getElementById('qzactions').style.display = 'none';
-  document.getElementById('result').innerHTML = '';
+  goPanel(4); g('QZL').style.display='flex'; g('QZC').style.display='none'; g('QZA').style.display='none'; g('RES').innerHTML='';
   try {
-    var raw = await callAI('Create exactly 5 reading comprehension questions for this text: ' + src.substring(0, 3000) + ' Use 3 multiple choice (4 options A-D) and 2 short answer. Respond ONLY with a raw JSON array, no markdown. MC: {"type":"mc","question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"A","explanation":"..."} SA: {"type":"sa","question":"...","sampleAnswer":"...","keywords":["w1","w2"]}', 1500);
-    quizData = JSON.parse(raw);
-    var L = ['A','B','C','D'], html = '';
-    quizData.forEach(function(q, qi) {
-      if (q.type === 'mc') {
-        html += '<div class="qq" id="q' + qi + '"><div class="qn">Q' + (qi+1) + ' &middot; Multiple Choice</div><div class="qt">' + q.question + '</div><div class="opts">';
-        q.options.forEach(function(opt, oi) { html += '<button class="opt" data-qi="' + qi + '" data-oi="' + oi + '"><span class="ol">' + L[oi] + '</span><span>' + opt.replace(/^[A-D]\)\s*/, '') + '</span></button>'; });
-        html += '</div><div class="qr" id="r' + qi + '"></div></div>';
-      } else {
-        html += '<div class="qq" id="q' + qi + '"><div class="qn">Q' + (qi+1) + ' &middot; Short Answer</div><div class="qt">' + q.question + '</div><div class="saw"><textarea id="sa' + qi + '" placeholder="Type your answer here..."></textarea></div></div>';
-
-```
-  }
-});
-document.getElementById('qzcontent').innerHTML = html;
-document.querySelectorAll('.opt').forEach(function(btn) { btn.addEventListener('click', function() { pick(+this.dataset.qi, +this.dataset.oi); }); });
-document.getElementById('qzcontent').style.display = 'block';
-document.getElementById('qzactions').style.display = 'flex';
-```
-
-} catch(err) {
-document.getElementById(‘qzcontent’).innerHTML = ’<div class="err">Could not generate quiz: ’ + err.message + ‘</div>’;
-document.getElementById(‘qzcontent’).style.display = ‘block’;
-}
-document.getElementById(‘qzload’).style.display = ‘none’;
+    var raw=await callAI('Create exactly 5 reading comprehension questions for this text: '+src.substring(0,3000)+' Use 3 multiple choice (4 options A-D) and 2 short answer. Respond ONLY with a raw JSON array, no markdown. MC: {"type":"mc","question":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"A","explanation":"..."} SA: {"type":"sa","question":"...","sampleAnswer":"..."}',1500);
+    quizData=JSON.parse(raw);
+    var L=['A','B','C','D'],html='';
+    quizData.forEach(function(q,qi){
+      if(q.type==='mc'){html+='<div class="qq" id="q'+qi+'"><div class="qn">Q'+(qi+1)+' &middot; Multiple Choice</div><div class="qt">'+q.question+'</div><div class="opts">';q.options.forEach(function(opt,oi){html+='<button class="opt" data-qi="'+qi+'" data-oi="'+oi+'"><span class="ol">'+L[oi]+'</span><span>'+opt.replace(/^[A-D]\)\s*/,'')+'</span></button>';});html+='</div><div class="qr" id="r'+qi+'"></div></div>';}
+      else{html+='<div class="qq" id="q'+qi+'"><div class="qn">Q'+(qi+1)+' &middot; Short Answer</div><div class="qt">'+q.question+'</div><div class="saw"><textarea id="sa'+qi+'" placeholder="Type your answer..."></textarea></div></div>';}
+    });
+    g('QZC').innerHTML=html;
+    document.querySelectorAll('.opt').forEach(function(b){b.addEventListener('click',function(){pick(+this.dataset.qi,+this.dataset.oi);});});
+    g('QZC').style.display='block'; g('QZA').style.display='flex';
+  } catch(e){g('QZC').innerHTML='<div class="err">Could not generate quiz: '+e.message+'</div>';g('QZC').style.display='block';}
+  g('QZL').style.display='none';
 }
 
-function pick(qi, sel) {
-var q = quizData[qi], L = [‘A’,‘B’,‘C’,‘D’], ci = L.indexOf(q.answer);
-document.querySelectorAll(’[data-qi=”’ + qi + ‘”]’).forEach(function(b, i) { b.disabled = true; if (i === ci) b.classList.add(‘correct’); else if (i === sel) b.classList.add(‘wrong’); });
-var r = document.getElementById(‘r’ + qi);
-r.classList.add(‘show’, sel === ci ? ‘cm’ : ‘wm’);
-r.textContent = (sel === ci ? ’Correct! ’ : ’Not quite. ’) + q.explanation;
+function pick(qi,sel){
+  var q=quizData[qi],L=['A','B','C','D'],ci=L.indexOf(q.answer);
+  document.querySelectorAll('[data-qi="'+qi+'"]').forEach(function(b,i){b.disabled=true;if(i===ci)b.classList.add('correct');else if(i===sel)b.classList.add('wrong');});
+  var r=g('r'+qi); r.classList.add('show',sel===ci?'cm':'wm'); r.textContent=(sel===ci?'Correct! ':'Not quite. ')+q.explanation;
 }
 
-async function submitQuiz() {
-document.getElementById(‘btnsub’).disabled = true; document.getElementById(‘btnsub’).textContent = ‘Grading…’;
-var L = [‘A’,‘B’,‘C’,‘D’], mcC = 0, mcT = 0, sa = [];
-quizData.forEach(function(q, qi) {
-if (q.type === ‘mc’) {
-mcT++;
-var ci = L.indexOf(q.answer), r = document.getElementById(‘r’ + qi);
-if (!r.classList.contains(‘show’)) { document.querySelectorAll(’[data-qi=”’ + qi + ‘”]’).forEach(function(b, i) { b.disabled = true; if (i === ci) b.classList.add(‘correct’); }); r.classList.add(‘show’,‘wm’); r.textContent = ’Not answered. ’ + q.explanation; } else if (r.classList.contains(‘cm’)) mcC++;
-} else {
-var el = document.getElementById(‘sa’ + qi);
-sa.push({ qi: qi, q: q.question, a: el ? el.value.trim() : ‘’, sa: q.sampleAnswer });
-}
-});
-var saScore = 0;
-if (sa.length > 0) {
-try {
-var raw = await callAI(‘Grade these short answers 0-10 each. Respond ONLY with a raw JSON array, no markdown: [{“score”:N,“feedback”:”…”},…] ’ + sa.map(function(s, i) { return ‘Q’ + (i+1) + ‘: ’ + s.q + ’ Sample: ’ + s.sa + ’ Student: “’ + s.a + ‘”’; }).join(’ | ’), 600);
-JSON.parse(raw).forEach(function(g, i) {
-var qi = sa[i].qi; saScore += g.score;
-var ta = document.getElementById(‘sa’ + qi); if (ta) ta.disabled = true;
-var el = document.createElement(‘div’); el.className = ’qr show ’ + (g.score >= 6 ? ‘cm’ : ‘wm’); el.textContent = ’Score: ’ + g.score + ‘/10 - ’ + g.feedback;
-document.getElementById(‘q’ + qi).appendChild(el);
-});
-} catch(e) { saScore = sa.length * 5; }
-}
-var mp = mcT > 0 ? (mcC / mcT) * 100 : 100;
-var sp2 = sa.length > 0 ? (saScore / (sa.length * 10)) * 100 : 100;
-var tot = Math.round(sa.length > 0 ? (mp + sp2) / 2 : mp);
-var g = tot >= 90 ? ‘A’ : tot >= 80 ? ‘B’ : tot >= 70 ? ‘C’ : tot >= 60 ? ‘D’ : ‘F’;
-var msgs = { A:‘Outstanding!’, B:‘Great work!’, C:‘Good effort! Review the explanations.’, D:‘Keep at it!’, F:“Don’t give up!” };
-document.getElementById(‘result’).innerHTML = ‘<div class="fsc"><div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:16px">Quiz Complete</div><div class="fgr ' + g + '">’ + g + ‘</div><div class="fsub">’ + tot + ’% · ’ + msgs[g] + ‘</div><div class="fst"><div><div class="sv" style="color:var(--acc)">’ + (mcT > 0 ? mcC + ‘/’ + mcT : ‘—’) + ‘</div><div class="slb">MC Correct</div></div><div><div class="sv" style="color:var(--ac2)">’ + fbScore + ‘</div><div class="slb">Summary Score</div></div><div><div class="sv" style="color:var(--ok)">’ + tot + ‘%</div><div class="slb">Quiz Score</div></div></div><div class="row" style="justify-content:center"><button id="btnrevise" class="btn bs">Revise Summary</button> <button id="btnrestart" class="btn bp">New Session ↻</button></div></div>’;
-document.getElementById(‘btnrevise’).addEventListener(‘click’, function() { goPanel(2); });
-document.getElementById(‘btnrestart’).addEventListener(‘click’, function() { showScreen(‘history’); loadHistory(); });
-document.getElementById(‘result’).scrollIntoView({ behavior: ‘smooth’ });
-document.getElementById(‘qzactions’).style.display = ‘none’;
-if (fbData) await saveSession(fbData, tot);
+async function submitQuiz(){
+  g('BSUB').disabled=true; g('BSUB').textContent='Grading...';
+  var L=['A','B','C','D'],mcC=0,mcT=0,sa=[];
+  quizData.forEach(function(q,qi){
+    if(q.type==='mc'){mcT++;var ci=L.indexOf(q.answer),r=g('r'+qi);if(!r.classList.contains('show')){document.querySelectorAll('[data-qi="'+qi+'"]').forEach(function(b,i){b.disabled=true;if(i===ci)b.classList.add('correct');});r.classList.add('show','wm');r.textContent='Not answered. '+q.explanation;}else if(r.classList.contains('cm'))mcC++;}
+    else{var el=g('sa'+qi);sa.push({qi:qi,q:q.question,a:el?el.value.trim():'',sa:q.sampleAnswer});}
+  });
+  var saScore=0;
+  if(sa.length>0){try{var raw=await callAI('Grade these short answers 0-10 each. Respond ONLY with raw JSON array, no markdown: [{"score":N,"feedback":"..."},...] '+sa.map(function(s,i){return 'Q'+(i+1)+': '+s.q+' Sample: '+s.sa+' Student: "'+s.a+'"';}).join(' | '),600);JSON.parse(raw).forEach(function(gr,i){var qi=sa[i].qi;saScore+=gr.score;var ta=g('sa'+qi);if(ta)ta.disabled=true;var el=document.createElement('div');el.className='qr show '+(gr.score>=6?'cm':'wm');el.textContent='Score: '+gr.score+'/10 - '+gr.feedback;g('q'+qi).appendChild(el);});}catch(e){saScore=sa.length*5;}}
+  var mp=mcT>0?(mcC/mcT)*100:100, sp2=sa.length>0?(saScore/(sa.length*10))*100:100, tot=Math.round(sa.length>0?(mp+sp2)/2:mp);
+  var gr=tot>=90?'A':tot>=80?'B':tot>=70?'C':tot>=60?'D':'F';
+  var msgs={A:'Outstanding!',B:'Great work!',C:'Good effort!',D:'Keep at it!',F:"Don't give up!"};
+  g('RES').innerHTML='<div class="fsc"><div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#888899;margin-bottom:16px">Quiz Complete</div><div class="fgr '+gr+'">'+gr+'</div><div class="fsub">'+tot+'% &middot; '+msgs[gr]+'</div><div class="fst"><div><div class="sv" style="color:#c8f060">'+(mcT>0?mcC+'/'+mcT:'&mdash;')+'</div><div class="slb">MC Correct</div></div><div><div class="sv" style="color:#60b8f0">'+fbScore+'</div><div class="slb">Summary Score</div></div><div><div class="sv" style="color:#60f0a8">'+tot+'%</div><div class="slb">Quiz Score</div></div></div><div class="row" style="justify-content:center"><button id="BREV" class="btn bs">Revise</button>&nbsp;<button id="BRST" class="btn bp">New Session &#8635;</button></div></div>';
+  g('BREV').addEventListener('click',function(){goPanel(2);});
+  g('BRST').addEventListener('click',function(){screen('H');loadHistory();});
+  g('RES').scrollIntoView({behavior:'smooth'}); g('QZA').style.display='none';
+  if(fbData) await saveSession(fbData,tot);
 }
 
-// ── Wire up events ────────────────────────────────────────────────────
-document.getElementById(‘tab0’).addEventListener(‘click’, function() { switchTab(0); });
-document.getElementById(‘tab1’).addEventListener(‘click’, function() { switchTab(1); });
-document.getElementById(‘pin’).addEventListener(‘input’, function() { src = this.value; document.getElementById(‘cc’).textContent = src.length; checkBtn1(); });
-document.getElementById(‘btn1’).addEventListener(‘click’, function() {
-if (activeTab === 0) src = document.getElementById(‘pin’).value.trim();
-document.getElementById(‘src-prev’).textContent = src.substring(0, 600) + (src.length > 600 ? ‘…’ : ‘’);
-document.getElementById(‘usum’).value = ‘’; document.getElementById(‘sc’).textContent = ‘0’; document.getElementById(‘btnfb’).disabled = true;
-goPanel(2);
-});
-document.getElementById(‘usum’).addEventListener(‘input’, function() { var v = this.value; document.getElementById(‘sc’).textContent = v.length; document.getElementById(‘btnfb’).disabled = v.trim().length < 80; });
-document.getElementById(‘btnback2’).addEventListener(‘click’, function() { goPanel(1); });
-document.getElementById(‘btnfb’).addEventListener(‘click’, getFeedback);
-document.getElementById(‘btnback3’).addEventListener(‘click’, function() { goPanel(2); });
-document.getElementById(‘btnquiz’).addEventListener(‘click’, startQuiz);
-document.getElementById(‘btnsub’).addEventListener(‘click’, submitQuiz);
-document.getElementById(‘dz’).addEventListener(‘dragover’, function(e) { e.preventDefault(); this.classList.add(‘drag’); });
-document.getElementById(‘dz’).addEventListener(‘dragleave’, function() { this.classList.remove(‘drag’); });
-document.getElementById(‘dz’).addEventListener(‘drop’, function(e) { e.preventDefault(); this.classList.remove(‘drag’); if (e.dataTransfer.files[0]) readPDF(e.dataTransfer.files[0]); });
-document.getElementById(‘fileinput’).addEventListener(‘change’, function() { if (this.files[0]) readPDF(this.files[0]); });
+// Wire up all buttons
+g('T0').addEventListener('click',function(){switchTab(0);});
+g('T1').addEventListener('click',function(){switchTab(1);});
+g('PIN').addEventListener('input',function(){src=this.value;g('CC').textContent=src.length;checkB1();});
+g('B1').addEventListener('click',function(){if(activeTab===0)src=g('PIN').value.trim();g('SPREV').textContent=src.substring(0,600)+(src.length>600?'...':'');g('USUM').value='';g('SC').textContent='0';g('BFB').disabled=true;goPanel(2);});
+g('USUM').addEventListener('input',function(){var v=this.value;g('SC').textContent=v.length;g('BFB').disabled=v.trim().length<80;});
+g('BB2').addEventListener('click',function(){goPanel(1);});
+g('BFB').addEventListener('click',getFeedback);
+g('BB3').addEventListener('click',function(){goPanel(2);});
+g('BQZ').addEventListener('click',startQuiz);
+g('BSUB').addEventListener('click',submitQuiz);
+g('HNEW').addEventListener('click',function(){src='';fbData=null;quizData=[];sessionId=null;activeTab=0;g('PIN').value='';g('USUM').value='';g('CC').textContent='0';g('SC').textContent='0';clearFile();switchTab(0);goPanel(1);screen('M');});
+g('MHIST').addEventListener('click',function(){screen('H');loadHistory();});
+g('DZ').addEventListener('dragover',function(e){e.preventDefault();this.style.borderColor='#c8f060';});
+g('DZ').addEventListener('dragleave',function(){this.style.borderColor='#2a2a35';});
+g('DZ').addEventListener('drop',function(e){e.preventDefault();this.style.borderColor='#2a2a35';if(e.dataTransfer.files[0])readPDF(e.dataTransfer.files[0]);});
+g('FI').addEventListener('change',function(){if(this.files[0])readPDF(this.files[0]);});
 
-// ── Enter key on auth ─────────────────────────────────────────────────
-document.getElementById(‘auth-pass’).addEventListener(‘keydown’, function(e) { if (e.key === ‘Enter’) doAuth(); });
-document.getElementById(‘auth-btn’).addEventListener(‘click’, doAuth);
-
-// ── Init ──────────────────────────────────────────────────────────────
-checkSession();
+dbg('Calling initAuth');
+initAuth();
+dbg('initAuth done');
 </script>
-
+<div id="DBG" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);color:#0f0;font-family:monospace;font-size:11px;padding:8px;max-height:120px;overflow-y:auto;z-index:9999;display:none"></div>
 </body>
 </html>
