@@ -231,7 +231,7 @@ if (typeof pdfjsLib !== 'undefined') pdfjsLib.GlobalWorkerOptions.workerSrc = 'h
 
 var SB_URL = 'https://rmxckkpteblnvjdgugcm.supabase.co';
 var SB_KEY = 'sb_publishable_BjaS3DNgdawXHXwU9oy0sQ_LFNrSnRb';
-var PROXY  = 'https://bananaman-mrnibls-summarai-proxy.hf.space';
+var PROXY  = 'https://summarai-labs-summarai-proxy.hf.space';
 var src='', fbScore=0, fbData=null, quizData=[], activeTab=0, uid=null, utoken=null, uemail=null, sessionId=null;
 
 function g(id) { return document.getElementById(id); }
@@ -364,7 +364,7 @@ g('FWBTN').addEventListener('click', async function() {
   ae.style.display='none'; aok.style.display='none';
   if (!email) { ae.textContent='Please enter your email address first.'; ae.style.display='block'; return; }
   this.disabled=true; this.textContent='Sending...';
-  var r = await sbReq('/auth/v1/recover?redirect_to=https://bananaman-mrnibls.github.io/SummarAI/','POST',{email:email});
+  var r = await sbReq('/auth/v1/recover?redirect_to=https://summarai-labs.github.io/SummarAI/','POST',{email:email});
   if (r.ok) { aok.textContent='Password reset email sent! Check your inbox.'; aok.style.display='block'; }
   else { ae.textContent='Could not send reset email. Try again.'; ae.style.display='block'; }
   this.disabled=false; this.textContent='Forgot password?';
