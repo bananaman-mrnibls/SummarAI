@@ -332,12 +332,25 @@ async function readPhoto(file) {
   var pi=g('PHOTOINF'); pi.style.display='block';
   pi.innerHTML='<div class="fbox"><div class="sp"></div><span style="color:#888899">&nbsp;Reading image with AI&hellip;</span></div>';
   try {
+    // Compress image before sending to reduce payload size
     var base64 = await new Promise(function(res, rej) {
-      var r=new FileReader();
-      r.onload=function(e){ res(e.target.result.split(',')[1]); };
-      r.onerror=rej;
-      r.readAsDataURL(file);
+      var img = new window.Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function() {
+        var canvas = document.createElement('canvas');
+        var MAX = 800;
+        var w = img.width, h = img.height;
+        if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        res(canvas.toDataURL('image/jpeg', 0.7).split(',')[1]);
+      };
+      img.onerror = rej;
+      img.src = url;
     });
+    var compressedType = 'image/jpeg';
     var response = await fetch('https://bananaman-mrnibls-summarai-proxy.hf.space', {
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
@@ -345,7 +358,7 @@ async function readPhoto(file) {
         model:'claude-sonnet-4-20250514',
         max_tokens:2000,
         messages:[{role:'user',content:[
-          {type:'image',source:{type:'base64',media_type:file.type,data:base64}},
+          {type:'image',source:{type:'base64',media_type:compressedType,data:base64}},
           {type:'text',text:'Extract all the text from this image exactly as it appears. Return only the extracted text, nothing else.'}
         ]}]
       })
