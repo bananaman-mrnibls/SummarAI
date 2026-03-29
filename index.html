@@ -223,36 +223,143 @@ lnav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 40px;display:f
 
 
 /* LIGHT MODE */
-body.light{--bg:#f5f5f0;--sur:#ffffff;--s2:#f0f0eb;--bor:#e0e0d8;--txt:#1a1a1f;--mut:#666677;background:#f5f5f0;color:#1a1a1f}
-body.light .card{background:#ffffff;border-color:#e0e0d8}
-body.light textarea{background:#f0f0eb;border-color:#e0e0d8;color:#1a1a1f}
-body.light .ainp{background:#f0f0eb;border-color:#e0e0d8;color:#1a1a1f}
-body.light .acard{background:#ffffff;border-color:#e0e0d8}
-body.light .btn.bs{background:#f0f0eb;color:#1a1a1f;border-color:#e0e0d8}
-body.light .btn.bg{color:#666677;border-color:#e0e0d8}
-body.light .qq{background:#f0f0eb;border-color:#e0e0d8}
-body.light .opt{background:#ffffff;border-color:#e0e0d8;color:#1a1a1f}
-body.light .fbb{background:#f0f0eb}
-body.light .tp{background:#f0f0eb;border-color:#e0e0d8}
-body.light .fsc{background:#ffffff;border-color:#e0e0d8}
-body.light .hitem{background:#f0f0eb;border-color:#e0e0d8}
-body.light .tabs{background:#f0f0eb}
-body.light .tab.on{background:#ffffff}
-body.light .qr{background:#f0f0eb}
-body.light #MODE-PARA,body.light #MODE-BULLET{background:transparent}
-body.light #MODE-PARA.active-mode{background:#ffffff!important;color:#1a1a1f!important}
-body.light .lscreen{background:#f5f5f0}
-body.light .lstats,body.light .lprob,body.light .ltesti,body.light .lcontact{background:#ffffff;border-color:#e0e0d8}
-body.light .lstep,body.light .ldiff-card,body.light .ltesti-card,body.light .lcmp-card{background:#f0f0eb;border-color:#e0e0d8}
-body.light .lcmp-card.bad{background:rgba(240,96,96,.06)}
-body.light .lcmp-card.good{background:rgba(200,240,96,.06)}
-body.light .lfaq-item{background:#f0f0eb;border-color:#e0e0d8}
-body.light .lfinp{background:#f0f0eb;border-color:#e0e0d8;color:#1a1a1f}
-body.light .lfooter{border-color:#e0e0d8}
-body.light nav{background:rgba(245,245,240,.9)}
-body.light .ascreen{background:#f5f5f0}
-body.light .hscreen{background:#f5f5f0}
+body.light{background:#f7f7f2;color:#1a1a1f}
+body.light .app{background:#f7f7f2}
+body.light .ascreen{background:#f0f0eb}
+body.light .hscreen{background:#f7f7f2}
 
+/* App cards and surfaces */
+body.light .card{background:#ffffff;border-color:#ddddd5}
+body.light .fbb{background:#f0f0eb;border-color:#ddddd5}
+body.light .fbb.pos{border-left-color:#2d9e6b}
+body.light .fbb.imp{border-left-color:#2d7ab0}
+body.light .fbb.mis{border-left-color:#b02d7a}
+body.light .tp{background:#f0f0eb;border-color:#ddddd5;color:#555566}
+body.light .qq{background:#f0f0eb;border-color:#ddddd5}
+body.light .opt{background:#ffffff;border-color:#ddddd5;color:#1a1a1f}
+body.light .opt:hover{border-color:#8aaa20}
+body.light .fsc{background:#ffffff;border-color:#ddddd5}
+body.light .qr{background:#f0f0eb;color:#555566}
+body.light .qr.cm{color:#2d9e6b}
+body.light .qr.wm{color:#c0392b}
+body.light .hitem{background:#ffffff;border-color:#ddddd5}
+body.light .hitem:hover{border-color:#8aaa20}
+body.light .ld{color:#555566}
+
+/* Inputs */
+body.light textarea{background:#f0f0eb;border-color:#ddddd5;color:#1a1a1f}
+body.light textarea:focus{border-color:#8aaa20}
+body.light .ainp{background:#f0f0eb;border-color:#ddddd5;color:#1a1a1f}
+body.light .ainp:focus{border-color:#8aaa20}
+body.light .acard{background:#ffffff;border-color:#ddddd5}
+body.light .aerr{background:rgba(192,57,43,.08);border-color:rgba(192,57,43,.3);color:#c0392b}
+body.light .aok{background:rgba(45,158,107,.08);border-color:rgba(45,158,107,.3);color:#2d9e6b}
+body.light .err{background:rgba(192,57,43,.08);border-color:rgba(192,57,43,.3);color:#c0392b}
+
+/* Buttons */
+body.light .btn.bs{background:#f0f0eb;color:#1a1a1f;border-color:#ddddd5}
+body.light .btn.bs:hover{border-color:#8aaa20}
+body.light .btn.bg{color:#555566;border-color:#ddddd5}
+body.light .btn.bg:hover{border-color:#8aaa20;color:#5a7a10}
+body.light .bp{background:#8aaa20;color:#ffffff}
+body.light .bp:hover{background:#7a9818}
+
+/* Tabs */
+body.light .tabs{background:#e8e8e2}
+body.light .tab{color:#555566}
+body.light .tab.on{background:#ffffff;color:#1a1a1f;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+body.light #MODE-PARA,body.light #MODE-BULLET{background:transparent;color:#555566}
+
+/* Step indicators */
+body.light .step{color:#555566}
+body.light .step.active{color:#1a1a1f}
+body.light .step.done{color:#5a7a10}
+body.light .scon{background:#ddddd5}
+body.light .step.active .snum,.body.light .step.done .snum{background:#8aaa20;border-color:#8aaa20;color:#fff}
+
+/* Nav */
+body.light .nav .logo span{color:#5a7a10}
+body.light .alogo span{color:#5a7a10}
+body.light .nemail{color:#555566}
+
+/* Score ring */
+body.light .rt{stroke:#e8e8e2}
+body.light .rn{color:#1a1a1f}
+body.light .rlb{color:#555566}
+
+/* DZ dropzone */
+body.light .dz{border-color:#ddddd5}
+body.light .dz:hover{border-color:#8aaa20;background:rgba(138,170,32,.04)}
+
+/* Spinner */
+body.light .sp{border-color:#ddddd5;border-top-color:#8aaa20}
+
+/* Theme button */
+body.light #THEME-BTN0,body.light #THEME-BTN1,body.light #THEME-BTN2{border-color:#ddddd5;color:#555566}
+
+/* LANDING LIGHT MODE */
+body.light .lscreen{background:#f7f7f2}
+body.light .lhero{background:#f7f7f2}
+body.light .lhero::before{background:radial-gradient(ellipse,rgba(90,122,16,.08) 0%,transparent 70%)}
+body.light .ltag{background:rgba(90,122,16,.1);border-color:rgba(90,122,16,.2);color:#5a7a10}
+body.light .lh1{color:#1a1a1f}
+body.light .lh1 em{color:#5a7a10}
+body.light .lsub{color:#555566}
+body.light .lbtn-p{background:#8aaa20;color:#ffffff}
+body.light .lbtn-g{color:#1a1a1f;border-color:#ddddd5}
+body.light .lbtn-g:hover{border-color:#8aaa20;color:#5a7a10}
+body.light .lnote{color:#555566}
+body.light .lstats{background:#ffffff;border-color:#ddddd5}
+body.light .lstat-n{color:#5a7a10}
+body.light .lstat-l{color:#555566}
+body.light .lprob{background:#ffffff;border-color:#ddddd5}
+body.light .lsec-tag{color:#5a7a10}
+body.light .lsec-title{color:#1a1a1f}
+body.light .lsec-sub{color:#555566}
+body.light .lcmp-card{background:#f0f0eb;border-color:#ddddd5;color:#1a1a1f}
+body.light .lcmp-card.bad{background:rgba(192,57,43,.05);border-color:rgba(192,57,43,.2)}
+body.light .lcmp-card.good{background:rgba(90,122,16,.05);border-color:rgba(90,122,16,.2)}
+body.light .lcmp-lbl{color:#555566}
+body.light .lcmp-card.bad .lcmp-lbl{color:#c0392b}
+body.light .lcmp-card.good .lcmp-lbl{color:#5a7a10}
+body.light .lstep{background:#ffffff;border-color:#ddddd5;color:#1a1a1f}
+body.light .lstep:hover{border-color:#8aaa20}
+body.light .lstep-num{color:rgba(90,122,16,.1)}
+body.light .lstep-title{color:#1a1a1f}
+body.light .lstep-desc{color:#555566}
+body.light .ldiff-card{background:#ffffff;border-color:#ddddd5}
+body.light .ldiff-card:hover{border-color:#2d7ab0}
+body.light .ldiff-title{color:#1a1a1f}
+body.light .ldiff-desc{color:#555566}
+body.light .ldiff-card.hl{background:rgba(90,122,16,.04);border-color:rgba(90,122,16,.2)}
+body.light .ltesti{background:#ffffff;border-color:#ddddd5}
+body.light .ltesti-card{background:#f0f0eb;border-color:#ddddd5}
+body.light .ltesti-stars{color:#5a7a10}
+body.light .ltesti-q{color:#1a1a1f}
+body.light .ltesti-name{color:#1a1a1f}
+body.light .ltesti-role{color:#555566}
+body.light .lfaq-item{background:#ffffff;border-color:#ddddd5}
+body.light .lfaq-q{color:#1a1a1f}
+body.light .lfaq-q:hover{color:#5a7a10}
+body.light .lfaq-arr{color:#555566}
+body.light .lfaq-item.open .lfaq-arr{color:#5a7a10}
+body.light .lfaq-a{color:#555566}
+body.light .lcontact{background:#ffffff;border-color:#ddddd5}
+body.light .lfinp{background:#f0f0eb;border-color:#ddddd5;color:#1a1a1f}
+body.light .lfinp:focus{border-color:#8aaa20}
+body.light .lfinp::placeholder{color:#888899}
+body.light .lform-submit{background:#8aaa20;color:#ffffff}
+body.light .lform-success{background:rgba(45,158,107,.08);border-color:rgba(45,158,107,.3);color:#2d9e6b}
+body.light .lcta{background:#f7f7f2}
+body.light .lcta h2{color:#1a1a1f}
+body.light .lcta p{color:#555566}
+body.light .lcta::before{background:radial-gradient(ellipse at 50%,rgba(90,122,16,.06),transparent 70%)}
+body.light .lfooter{background:#f7f7f2;border-color:#ddddd5}
+body.light .lfooter-logo{color:#1a1a1f}
+body.light .lfooter-logo span{color:#5a7a10}
+body.light nav{background:rgba(247,247,242,.92);border-color:#ddddd5}
+body.light .lnav-logo{color:#1a1a1f}
+body.light .lnav-logo span{color:#5a7a10}
 
 /* IMPROVED MOBILE */
 @media(max-width:600px){
