@@ -1029,9 +1029,24 @@ async function saveSession(fb, qScore) {
   else { var r=await sbReq('/rest/v1/sessions','POST',pay); if(r.data&&r.data[0]) sessionId=r.data[0].id; }
 }
 
+function textSimilarity(a, b) {
+  var wordsA = a.toLowerCase().split(/\s+/);
+  var wordsB = b.toLowerCase().split(/\s+/);
+  var setB = {};
+  wordsB.forEach(function(w){ setB[w] = true; });
+  var matches = wordsA.filter(function(w){ return setB[w]; }).length;
+  return matches / wordsA.length;
+}
+
 async function getFeedback() {
   var sum=g('USUM').value.trim();
   if (sum.length<80) { g('SUME').style.display='block'; return; }
+  var similarity = textSimilarity(sum, src);
+  if (similarity > 0.7) {
+    g('SUME').textContent = 'Your summary looks too similar to the original text. Try writing it in your own words!';
+    g('SUME').style.display='block';
+    return;
+  }
   g('SUME').style.display='none'; goPanel(3);
   g('FBL').style.display='flex'; g('FBC').style.display='none'; g('FBA').style.display='none';
   try {
