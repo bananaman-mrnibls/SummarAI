@@ -991,8 +991,9 @@ async function callAI(prompt, maxTok) {
   return d.content.map(function(b){return b.text||'';}).join('').replace(/```json/g,'').replace(/```/g,'').trim();
 }
 
-async function sbReq(path, method, body) {
-  var headers={'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+(utoken||SB_KEY),'Prefer':'return=representation'};
+async function sbReq(path, method, body, upsert) {
+  var prefer = upsert ? 'return=representation,resolution=merge-duplicates' : 'return=representation';
+  var headers={'Content-Type':'application/json','apikey':SB_KEY,'Authorization':'Bearer '+(utoken||SB_KEY),'Prefer':prefer};
   var res=await fetch(SB_URL+path,{method:method||'GET',headers:headers,body:body?JSON.stringify(body):undefined});
   try{return{ok:res.ok,status:res.status,data:await res.json()};}catch(e){return{ok:res.ok,status:res.status,data:null};}
 }
@@ -1076,7 +1077,7 @@ async function doAuth() {
         if (r2.ok && r2.data && r2.data.access_token) {
           utoken=r2.data.access_token; uid=r2.data.user.id; uemail=r2.data.user.email;
           try{localStorage.setItem('sat',utoken);localStorage.setItem('suid',uid);localStorage.setItem('sem',uemail);}catch(e){}
-          await sbReq('/rest/v1/profiles', 'POST', {id: uid, is_teacher: isTeacherSignup});
+          await sbReq('/rest/v1/profiles', 'POST', {id: uid, is_teacher: isTeacherSignup}, true);
           isTeacher = isTeacherSignup;
           await routeByRole();
         } else { aok.textContent='Account created! You can now sign in.'; aok.style.display='block'; }
@@ -1115,8 +1116,8 @@ g('FWBTN').addEventListener('click', async function() {
 });
 
 function signOut() {
-  utoken=null;uid=null;uemail=null;
-  try{localStorage.removeItem('sat');localStorage.removeItem('suid');localStorage.removeItem('sem');}catch(e){}
+  utoken=null;uid=null;uemail=null;isTeacher=false;
+  try{localStorage.removeItem('sat');localStorage.removeItem('suid');localStorage.removeItem('sem');localStorage.removeItem('sis_teacher');}catch(e){}
   screen('A');
 }
 
@@ -1433,16 +1434,22 @@ function screen(s) {
 }
 
 async function loadProfile() {
+  // First check localStorage cache
+  try {
+    var cached = localStorage.getItem('sis_teacher');
+    if (cached !== null) { isTeacher = cached === 'true'; return isTeacher; }
+  } catch(e){}
   var res = await sbReq('/rest/v1/profiles?id=eq.'+uid+'&select=*', 'GET');
   if (res.ok && res.data && res.data[0]) {
     isTeacher = res.data[0].is_teacher || false;
+    try { localStorage.setItem('sis_teacher', isTeacher ? 'true' : 'false'); } catch(e){}
   }
   return isTeacher;
 }
 
 async function saveProfile(teacherFlag) {
   // Upsert profile
-  await sbReq('/rest/v1/profiles', 'POST', {id: uid, is_teacher: teacherFlag});
+  await sbReq('/rest/v1/profiles', 'POST', {id: uid, is_teacher: teacherFlag}, true);
 }
 
 // Override doAuth to also save profile on signup
@@ -1615,7 +1622,12 @@ g('T-CREATE-SUBMIT').addEventListener('click', async function() {
   g('T-CREATE-FORM').style.display = 'none';
   g('T-NEW-CLASS-BTN').style.display = 'inline-flex';
   g('T-CLASS-NAME').value = '';
-  loadTeacherDashboard();
+  if (res.ok) {
+    // Show the newly created class detail immediately
+    var cls = res.data && res.data[0] ? res.data[0] : {id: null, name: name, code: code, created_at: new Date().toISOString()};
+    await loadTeacherDashboard();
+    if (cls.id) openClassDetail(cls);
+  }
 });
 g('T-BACK-BTN').addEventListener('click', function() {
   g('T-OVERVIEW').style.display = 'block';
